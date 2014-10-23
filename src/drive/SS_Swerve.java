@@ -41,7 +41,7 @@ public class SS_Swerve extends Subsystem {
        
 }
     public void swerve(int heading, float power, Point center, float turnSpeed) {
-        System.out.println("starting swerve");
+        System.out.println("swerving ...");
         float maxWheelMagnitude = 0;
         for (int k = 0; k<4; k++){
             
