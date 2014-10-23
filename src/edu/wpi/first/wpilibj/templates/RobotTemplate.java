@@ -37,7 +37,6 @@ public class RobotTemplate extends IterativeRobot {
     public void robotInit() {
         // instantiate the command used for the autonomous period
         autonomousCommand = new ExampleCommand();
-         swerve = new SS_Swerve();
         // Initialize all subsystems
         CommandBase.init();
         System.out.println("done robot init");        
