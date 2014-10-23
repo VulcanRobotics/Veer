@@ -77,6 +77,6 @@ public class SS_Swerve extends Subsystem {
         Vector translationVector = new Vector();
         translationVector = translationVector.polarVector(heading, power);
         
-        swerve(translation, center, turnSpeed);
+        swerve(translationVector, center, turnSpeed);
     }
 }
