@@ -1,8 +1,5 @@
 
-package edu.wpi.first.wpilibj.templates;
-
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
+package Robot;
 
 /**
  * This class is the glue that binds the controls on the physical operator

@@ -5,19 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package edu.wpi.first.wpilibj.templates;
+package Robot;
 
 
-import customMath.Point;
 import drive.SS_Swerve;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.templates.commands.CommandBase;
-import edu.wpi.first.wpilibj.templates.commands.ExampleCommand;
-import drive.SS_SwerveModule;
-import customMath.Vector;
 import customMath.Point;
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,7 +31,7 @@ public class RobotTemplate extends IterativeRobot {
      */
     public void robotInit() {
         // instantiate the command used for the autonomous period
-        autonomousCommand = new ExampleCommand();
+        autonomousCommand = new C_AutonCommand();
         // Initialize all subsystems
         CommandBase.init();
         System.out.println("done robot init");        

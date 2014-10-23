@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/1218/Dropbox/swerve%20project/programming/RobotTemplate/src/customMath/Vector.java</file>
-            <file>file:/C:/Users/1218/Dropbox/swerve%20project/programming/RobotTemplate/src/edu/wpi/first/wpilibj/templates/RobotTemplate.java</file>
-            <file>file:/C:/Users/1218/Dropbox/swerve%20project/programming/RobotTemplate/src/drive/C_Swerve.java</file>
-            <file>file:/C:/Users/1218/Dropbox/swerve%20project/programming/RobotTemplate/src/drive/SS_Swerve.java</file>
-            <file>file:/C:/Users/1218/Dropbox/swerve%20project/programming/RobotTemplate/src/edu/wpi/first/wpilibj/templates/RobotMap.java</file>
-            <file>file:/C:/Users/1218/Dropbox/swerve%20project/programming/RobotTemplate/src/customMath/Point.java</file>
-            <file>file:/C:/Users/1218/Dropbox/swerve%20project/programming/RobotTemplate/src/drive/SS_SwerveModule.java</file>
+            <file>file:/Users/afiol-mahon/Development/Veer/src/Robot/RobotMap.java</file>
+            <file>file:/Users/afiol-mahon/Development/Veer/src/Robot/RobotTemplate.java</file>
+            <file>file:/Users/afiol-mahon/Development/Veer/src/Robot/OI.java</file>
+            <file>file:/Users/afiol-mahon/Development/Veer/src/Robot/CommandBase.java</file>
         </group>
     </open-files>
 </project-private>
