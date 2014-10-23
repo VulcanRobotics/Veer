@@ -23,6 +23,7 @@ public class C_Swerve extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+		swerve = new SS_Swerve();
     }
 
     // Called repeatedly when this Command is scheduled to run
