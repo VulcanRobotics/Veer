@@ -40,18 +40,16 @@ public class SS_Swerve extends Subsystem {
         setDefaultCommand(new C_Swerve());
        
 }
-    public void swerve(int heading, float power, Point center, float turnSpeed) {
+    public void swerve(Vector translationVector, Point center, float turnSpeed) {
         System.out.println("swerving ...");
         float maxWheelMagnitude = 0;
+   
         for (int k = 0; k<4; k++){
             
             Vector steeringVector = new Vector(center, modules[k].location); //initilizes as a radial vector from turning center to wheel
             steeringVector.rotate(90); // steering vector now faces in direction for rotation
             steeringVector.setMagnitude(turnSpeed);
             
-            Vector translationVector = new Vector();
-            translationVector = translationVector.polarVector(heading, power);
-
             modules[k].wheelVector = translationVector.add(steeringVector); // ad the translation and rotation vectors to get the required wheel vector
             
             //check if this wheel has the highest magnitude
@@ -72,5 +70,13 @@ public class SS_Swerve extends Subsystem {
             System.out.print(modules[k].wheelVector.getAngle());
             System.out.print(modules[k].wheelVector.getMagnitude());
         }
+    }
+    
+    //convenience method
+    public void swerve(int heading, float power, Point center, float turnSpeed) {
+        Vector translationVector = new Vector();
+        translationVector = translationVector.polarVector(heading, power);
+        
+        swerve(translation, center, turnSpeed);
     }
 }
