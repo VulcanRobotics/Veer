@@ -1,39 +1,37 @@
-package customMath;
+package MathObject;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import customMath.Point;
-import java.lang.Math;
 
 /**
  *
  * @author 1218
  */
-public class Vector {
+public class O_Vector {
     public float x;
     public float y;
     
-    public Vector(float newX, float newY){
+    public O_Vector(float newX, float newY){
         x = newX;
         y = newY;
     }
     
-    public Vector()
+    public O_Vector()
     {
         x = 1;
         y = 1;
     }
     
-    public Vector polarVector(int heading, float power){
+    public O_Vector polarVector(int heading, float power){
         y = (float)Math.sin((double)heading) * power;
         x = (float)Math.cos((double)heading) * power;
         return this;
     }
     
-    public Vector(Point p1, Point p2) {
+    public O_Vector(O_Point p1, O_Point p2) {
         x = p2.x - p1.x;
         y = p2.y - p1.y;
     }
@@ -48,11 +46,11 @@ public class Vector {
             y = -x;
         }
     }
-    public Vector subtract(Vector subtractVector){
-        return new Vector(x - subtractVector.x, y- subtractVector.y);
+    public O_Vector subtract(O_Vector subtractVector){
+        return new O_Vector(x - subtractVector.x, y- subtractVector.y);
     }
-    public Vector add(Vector vectorToAdd) {
-        return new Vector(x + vectorToAdd.x, y + vectorToAdd.y); 
+    public O_Vector add(O_Vector vectorToAdd) {
+        return new O_Vector(x + vectorToAdd.x, y + vectorToAdd.y); 
     }
     
     public float getMagnitude()
@@ -62,7 +60,7 @@ public class Vector {
     public void setMagnitude(float newMagnitude)
     {
         float magnitude = this.getMagnitude();
-        if (0 == magnitude){
+        if (magnitude == 0){
             System.out.println("error: magnitude of vector is zero");
         }
         float scaleFactor = newMagnitude/magnitude;

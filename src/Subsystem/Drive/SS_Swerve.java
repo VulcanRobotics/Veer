@@ -1,12 +1,12 @@
-package drive;
+package Subsystem.Drive;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import customMath.Vector;
-import customMath.Point;
+import MathObject.O_Vector;
+import MathObject.O_Point;
 import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
@@ -25,10 +25,10 @@ public class SS_Swerve extends Subsystem {
          for ( int k = 0; k < 4; k++) {
            modules[k] = new SS_SwerveModule();
         }
-        modules[0].location = new Point(1,1) ;
-        modules[1].location = new Point(1,-1);
-        modules[2].location = new Point(-1,-1);
-        modules[3].location = new Point(-1,1);
+        modules[0].location = new O_Point(1,1) ;
+        modules[1].location = new O_Point(1,-1);
+        modules[2].location = new O_Point(-1,-1);
+        modules[3].location = new O_Point(-1,1);
          System.out.println("done init swerve");
                 
     }
@@ -40,13 +40,13 @@ public class SS_Swerve extends Subsystem {
         setDefaultCommand(new C_Swerve());
        
 }
-    public void swerve(Vector translationVector, Point center, float turnSpeed) {
+    public void swerve(O_Vector translationVector, O_Point center, float turnSpeed) {
         System.out.println("swerving ...");
         float maxWheelMagnitude = 0;
    
         for (int k = 0; k<4; k++){
             
-            Vector steeringVector = new Vector(center, modules[k].location); //initilizes as a radial vector from turning center to wheel
+            O_Vector steeringVector = new O_Vector(center, modules[k].location); //initilizes as a radial vector from turning center to wheel
             steeringVector.rotate(90); // steering vector now faces in direction for rotation
             steeringVector.setMagnitude(turnSpeed);
             
@@ -73,8 +73,8 @@ public class SS_Swerve extends Subsystem {
     }
     
     //convenience method
-    public void swerve(int heading, float power, Point center, float turnSpeed) {
-        Vector translationVector = new Vector();
+    public void swerve(int heading, float power, O_Point center, float turnSpeed) {
+        O_Vector translationVector = new O_Vector();
         translationVector = translationVector.polarVector(heading, power);
         
         swerve(translationVector, center, turnSpeed);

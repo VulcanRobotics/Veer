@@ -1,4 +1,4 @@
-package customMath;
+package MathObject;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -9,10 +9,10 @@ package customMath;
  *
  * @author 1218
  */
-public class Point {
+public class O_Point {
     float x;
     float y;
-    public Point ( float newX, float newY) {
+    public O_Point ( float newX, float newY) {
         x = newX;
         y = newY;
     }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sensing;
+package Subsystem.Drive;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Encoder;
@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Encoder;
  *
  * @author 1218
  */
-public class TurningEncoder extends Subsystem {
+public class O_TurningEncoder extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     Encoder encoder;

@@ -1,7 +1,7 @@
-package drive;
+package Subsystem.Drive;
 
 
-import customMath.Point;
+import MathObject.O_Point;
 import Robot.CommandBase;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -28,7 +28,7 @@ public class C_Swerve extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        swerve.swerve(90, (float)0.75, new Point(0,0), 0);
+        swerve.swerve(90, (float)0.75, new O_Point(0,0), 0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -8,12 +8,12 @@
 package Robot;
 
 
-import drive.SS_Swerve;
+import Subsystem.Drive.SS_Swerve;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import customMath.Point;
+import MathObject.O_Point;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -21,7 +21,7 @@ import customMath.Point;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class RobotTemplate extends IterativeRobot {
+public class RobotMain extends IterativeRobot {
 
     Command autonomousCommand;
     SS_Swerve swerve = new SS_Swerve();
@@ -64,7 +64,7 @@ public class RobotTemplate extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        swerve.swerve( 0,  1, new Point((float)0.0, (float) 0.0),  0);
+        swerve.swerve(0,  1, new O_Point((float)0.0, (float) 0.0),  0);
     }
     
     /**
