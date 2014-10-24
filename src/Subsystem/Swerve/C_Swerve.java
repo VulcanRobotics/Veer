@@ -23,11 +23,9 @@ public class C_Swerve extends CommandBase {
     }
 
     protected void execute() {
-<<<<<<< HEAD
-=======
+
         //System.out.println("execting C_Swerve");
         swerve.swerve(90, (float)0.75, new O_Point(0,0), 0);
->>>>>>> 4bf4609caa2bb88859c753e17b0d106ec2fdec0b
     }
 
     protected boolean isFinished() {
