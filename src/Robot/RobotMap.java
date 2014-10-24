@@ -7,13 +7,29 @@ package Robot;
  * floating around.
  */
 public class RobotMap {
-    // For example to map the left and right motors, you could define the
-    // following variables to use with your drivetrain subsystem.
-    // public static final int leftMotor = 1;
-    // public static final int rightMotor = 2;
-    
-    // If you are using multiple modules, make sure to define both the port
-    // number and the module. For example you with a rangefinder:
-    // public static final int rangefinderPort = 1;
-    // public static final int rangefinderModule = 1;
+    //Swerve Modules
+        //SM0
+            public static final int SM0_CIM = 0;
+            public static final int SM0_CIMile = 0;
+            public static final int SM0_banebot = 0;
+            public static final int SM0_EncoderA = 0;
+            public static final int SM0_EncoderB = 0;
+        //SM1
+            public static final int SM1_CIM = 0;
+            public static final int SM1_CIMile = 0;
+            public static final int SM1_banebot = 0;
+            public static final int SM1_EncoderA = 0;
+            public static final int SM1_EncoderB = 0;
+        //SM2
+            public static final int SM2_CIM = 0;
+            public static final int SM2_CIMile = 0;
+            public static final int SM2_banebot = 0;
+            public static final int SM2_EncoderA = 0;
+            public static final int SM2_EncoderB = 0;
+        //SM3
+            public static final int SM3_CIM = 0;
+            public static final int SM3_CIMile = 0;
+            public static final int SM3_banebot = 0;
+            public static final int SM3_EncoderA = 0;
+            public static final int SM3_EncoderB = 0;
 }

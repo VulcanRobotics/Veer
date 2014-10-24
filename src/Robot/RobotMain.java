@@ -8,7 +8,6 @@
 package Robot;
 
 
-import Subsystem.Drive.SS_Swerve;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -24,7 +23,6 @@ import MathObject.O_Point;
 public class RobotMain extends IterativeRobot {
 
     Command autonomousCommand;
-    SS_Swerve swerve = new SS_Swerve();
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -34,7 +32,7 @@ public class RobotMain extends IterativeRobot {
         autonomousCommand = new C_AutonCommand();
         // Initialize all subsystems
         CommandBase.init();
-        System.out.println("done robot init");        
+        System.out.println("Robot Initialized");        
     }
 
     public void autonomousInit() {
@@ -56,7 +54,7 @@ public class RobotMain extends IterativeRobot {
         // this line or comment it out.
         autonomousCommand.cancel();
        
-        System.out.println("done teleop init");
+        System.out.println("Teleop Initialized");
     }
 
     /**
@@ -64,7 +62,7 @@ public class RobotMain extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        swerve.swerve(0,  1, new O_Point((float)0.0, (float) 0.0),  0);
+        CommandBase.swerve.swerve(0,  1, new O_Point((float)0.0, (float) 0.0),  0);
     }
     
     /**

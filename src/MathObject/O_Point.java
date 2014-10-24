@@ -12,8 +12,8 @@ package MathObject;
 public class O_Point {
     float x;
     float y;
-    public O_Point ( float newX, float newY) {
-        x = newX;
-        y = newY;
+    public O_Point ( float x, float y) {
+        this.x = x;
+        this.y = y;
     }
 }

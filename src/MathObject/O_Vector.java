@@ -14,9 +14,9 @@ public class O_Vector {
     public float x;
     public float y;
     
-    public O_Vector(float newX, float newY){
-        x = newX;
-        y = newY;
+    public O_Vector(float x, float y){
+        this.x = x;
+        this.y = y;
     }
     
     public O_Vector()

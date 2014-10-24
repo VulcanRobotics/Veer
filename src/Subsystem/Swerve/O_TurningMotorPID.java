@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
  //test change
-package Subsystem.Drive;
+package Subsystem.Swerve;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.Talon;
@@ -20,13 +20,13 @@ public class O_TurningMotorPID extends PIDSubsystem {
     private static final double Kd = 0.0;
 
     private Talon motor;
-    O_TurningEncoder encoder;
+    O_TurningEncoder turningEncoder;
     
     // Initialize your subsystem here
-    public O_TurningMotorPID(int talonPort, int encoderPort1, int encoderPort2) {
+    public O_TurningMotorPID(int talonPort, int encoderPortA, int encoderPortB) {
         super("turningMotorPID", Kp, Ki, Kd);
         motor = new Talon(talonPort);
-        //encoder = new TurningEncoder(encoderPort1, encoderPort2, 360, 2);
+        turningEncoder = new O_TurningEncoder(encoderPortA, encoderPortB, 360);
         // Use these to get going:
         // setSetpoint() -  Sets where the PID controller should move the system
         //                  to
