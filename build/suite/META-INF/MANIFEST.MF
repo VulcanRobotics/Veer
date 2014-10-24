@@ -4,7 +4,7 @@ Created-By: 1.7.0_67-b01 (Oracle Corporation)
 MIDlet-Name: Veer
 MIDlet-Version: 1.0.0
 MIDlet-Vendor: FIRST
-MIDlet-1: RobotTemplate, , Robot.RobotMain;
+MIDlet-1: RobotMain, , Robot.RobotMain
 MicroEdition-Profile: IMP-1.0
 MicroEdition-Configuration: CLDC-1.1
 
