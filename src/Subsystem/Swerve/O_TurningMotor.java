@@ -25,7 +25,7 @@ public class O_TurningMotor {
     
     // Initialize your subsystem here
     public O_TurningMotor(int talonPort, int encoderPortA, int encoderPortB) {
-        motor = new Talon(talonPort);
+        motor = new Talon(2,talonPort);
         turningEncoder = new O_TurningEncoder(encoderPortA, encoderPortB);
         PID = new PIDController(Kp, Ki, Kd, turningEncoder, motor);
         PID.enable();
