@@ -9,27 +9,27 @@ package Robot;
 public class RobotMap {
     //Swerve Modules
         //SM0
-            public static final int SM0_CIM = 0;
-            public static final int SM0_CIMile = 0;
-            public static final int SM0_banebot = 0;
-            public static final int SM0_EncoderA = 0;
-            public static final int SM0_EncoderB = 0;
+            public static final int SM0_CIM = 1;
+            public static final int SM0_CIMile = 2;
+            public static final int SM0_banebot = 1;
+            public static final int SM0_EncoderA = 1;
+            public static final int SM0_EncoderB = 1;
         //SM1
-            public static final int SM1_CIM = 0;
-            public static final int SM1_CIMile = 0;
-            public static final int SM1_banebot = 0;
-            public static final int SM1_EncoderA = 0;
-            public static final int SM1_EncoderB = 0;
+            public static final int SM1_CIM = 3;
+            public static final int SM1_CIMile = 4;
+            public static final int SM1_banebot = 2;
+            public static final int SM1_EncoderA = 1;
+            public static final int SM1_EncoderB = 1;
         //SM2
-            public static final int SM2_CIM = 0;
-            public static final int SM2_CIMile = 0;
-            public static final int SM2_banebot = 0;
-            public static final int SM2_EncoderA = 0;
-            public static final int SM2_EncoderB = 0;
+            public static final int SM2_CIM = 5;
+            public static final int SM2_CIMile = 6;
+            public static final int SM2_banebot = 3;
+            public static final int SM2_EncoderA = 1;
+            public static final int SM2_EncoderB = 1;
         //SM3
-            public static final int SM3_CIM = 0;
-            public static final int SM3_CIMile = 0;
-            public static final int SM3_banebot = 0;
-            public static final int SM3_EncoderA = 0;
-            public static final int SM3_EncoderB = 0;
+            public static final int SM3_CIM = 7;
+            public static final int SM3_CIMile = 8;
+            public static final int SM3_banebot = 4;
+            public static final int SM3_EncoderA = 1;
+            public static final int SM3_EncoderB = 1;
 }

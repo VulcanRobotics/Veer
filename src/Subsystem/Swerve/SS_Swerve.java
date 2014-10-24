@@ -17,11 +17,11 @@ public class SS_Swerve extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     
-    O_SwerveModule[] modules;
+    O_SwerveModule[] modules = new O_SwerveModule[4];
     /**
      *
      */
-    public void SS_Swerve()
+    public SS_Swerve()
     {
         modules[0] = new O_SwerveModule(new O_Point(1,1), RobotMap.SM0_CIM, RobotMap.SM0_CIMile, RobotMap.SM0_banebot, RobotMap.SM0_EncoderA, RobotMap.SM0_EncoderB);
         modules[1] = new O_SwerveModule(new O_Point(1,-1), RobotMap.SM1_CIM, RobotMap.SM1_CIMile, RobotMap.SM1_banebot, RobotMap.SM1_EncoderA, RobotMap.SM1_EncoderB);
@@ -44,6 +44,8 @@ public class SS_Swerve extends Subsystem {
         for (int k = 0; k<4; k++){
             System.out.println(k);
             System.out.println(center);
+            System.out.println(modules);
+            System.out.println(modules[k]);
             System.out.println(modules[k].location);
             O_Vector steeringVector = new O_Vector(center, modules[k].location); //initilizes as a radial vector from turning center to wheel
             steeringVector.rotate(90); // steering vector now faces in direction for rotation
