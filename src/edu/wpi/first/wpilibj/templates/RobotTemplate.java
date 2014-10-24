@@ -29,7 +29,6 @@ import customMath.Point;
 public class RobotTemplate extends IterativeRobot {
 
     Command autonomousCommand;
-    SS_Swerve swerve = new SS_Swerve();
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -69,7 +68,6 @@ public class RobotTemplate extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        swerve.swerve( 0,  1, new Point((float)0.0, (float) 0.0),  0);
     }
     
     /**
