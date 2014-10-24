@@ -21,7 +21,7 @@ public class O_SwerveModule {
     public O_Point location;  
     Talon CIM;
     Talon CIMile;
-    O_TurningMotorPID turningMotor;
+    O_TurningMotor turningMotor;
     
     public O_Vector wheelVector;
     
@@ -30,7 +30,7 @@ public class O_SwerveModule {
         this.location = location;
         CIM = new Talon(CIMPort);
         CIMile = new Talon(CIMilePort);
-        turningMotor = new O_TurningMotorPID(banebotPort, encoderPortA, encoderPortB);
+        turningMotor = new O_TurningMotor(banebotPort, encoderPortA, encoderPortB);
     }
     
     public void update()

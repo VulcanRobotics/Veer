@@ -6,28 +6,27 @@
 package Subsystem.Swerve;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDSource;
 
 /**
  *
  * @author 1218
  */
 
-public class O_TurningEncoder {
+public class O_TurningEncoder implements PIDSource{
 
     Encoder encoder;
-    int countsPerRotation;
+    int countsPerRotation = 360;
     
-    public O_TurningEncoder(int encoderPort_A, int encoderPort_B, int countsPerRotation) {
+    public O_TurningEncoder(int encoderPort_A, int encoderPort_B) {
         encoder = new Encoder(encoderPort_A, encoderPort_B);
-        this.countsPerRotation = countsPerRotation;
     }
     
     public void setForward() {
         encoder.reset();
     }
-    
-    public int getAngle() {
-        // get abslotute abgle from 0 to 360 ignore switch of direction
+
+    public double pidGet() {
         return (encoder.get()/countsPerRotation)/360;
     }
 }
