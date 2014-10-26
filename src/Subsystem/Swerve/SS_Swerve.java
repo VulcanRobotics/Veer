@@ -65,8 +65,11 @@ public class SS_Swerve extends Subsystem {
         }
         // log wheel position
         for (int k = 0; k<4; k++) {
+            System.out.prinln("Module number: ");
             System.out.print(k);
+            System.out.prinln("Wheel Angle: ");
             System.out.print(modules[k].wheelVector.getAngle());
+            System.out.prinln("Wheel Power: ");
             System.out.print(modules[k].wheelVector.getMagnitude());
         }
     }
