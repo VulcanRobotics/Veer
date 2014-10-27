@@ -32,4 +32,9 @@ public class RobotMap {
             public static final int SM3_banebot = 4;
             public static final int SM3_EncoderA = 7;
             public static final int SM3_EncoderB = 8;
+            
+         //Joysticks
+           public static final int J1 = 1;
+           public static final int J2 = 2;
+           
 }

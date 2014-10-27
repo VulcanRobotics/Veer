@@ -2,6 +2,8 @@ package Subsystem.Swerve;
 
 import MathObject.O_Point;
 import Robot.CommandBase;
+import Robot.OI;
+import MathObject.O_Vector;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,7 +20,7 @@ public class C_Swerve extends CommandBase {
     }
 
     protected void initialize() {
-        swerve.swerve(90, (float)0.75, new O_Point(0,0), 0);
+        swerve.swerve(new O_Vector((float)OI.joystick1.getX(), (float)OI.joystick1.getY()), new O_Point(0,0), 0);
         System.out.println("Running C_Swerve");
     }
 
