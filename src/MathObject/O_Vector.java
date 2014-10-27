@@ -1,5 +1,8 @@
 package MathObject;
 
+import com.sun.squawk.util.MathUtils;
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -34,6 +37,8 @@ public class O_Vector {
     public O_Vector(O_Point p1, O_Point p2) {
         x = p2.x - p1.x;
         y = p2.y - p1.y;
+        System.out.println(x);
+        System.out.println(y);
     }
     
     public void rotate(int rotation)
@@ -70,8 +75,7 @@ public class O_Vector {
     
     public int getAngle()
     { 
-        return 0;
-      // return Math.toDegrees(Math.atan2((double)y, (double)x));
+       return (int)Math.toDegrees(MathUtils.atan2((double)y, (double)x));
     }
     public void setAngle(int angle)
     {

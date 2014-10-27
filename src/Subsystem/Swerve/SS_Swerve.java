@@ -40,11 +40,12 @@ public class SS_Swerve extends Subsystem {
     public void swerve(O_Vector translationVector, O_Point center, float turnSpeed) {
         System.out.println("swerving ...");
         float maxWheelMagnitude = 0;
-   
         for (int k = 0; k<4; k++){
             O_Vector steeringVector = new O_Vector(center, modules[k].location); //initilizes as a radial vector from turning center to wheel
+            System.out.println(steeringVector.getAngle());
             steeringVector.rotate(90); // steering vector now faces in direction for rotation
             steeringVector.setMagnitude(turnSpeed);
+            System.out.println(steeringVector.getAngle());
             
             modules[k].wheelVector = translationVector.add(steeringVector); // add the translation and rotation vectors to get the required wheel vector
             
