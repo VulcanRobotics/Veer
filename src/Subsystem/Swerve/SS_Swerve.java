@@ -42,11 +42,6 @@ public class SS_Swerve extends Subsystem {
         float maxWheelMagnitude = 0;
    
         for (int k = 0; k<4; k++){
-            System.out.println(k);
-            System.out.println(center);
-            System.out.println(modules);
-            System.out.println(modules[k]);
-            System.out.println(modules[k].location);
             O_Vector steeringVector = new O_Vector(center, modules[k].location); //initilizes as a radial vector from turning center to wheel
             steeringVector.rotate(90); // steering vector now faces in direction for rotation
             steeringVector.setMagnitude(turnSpeed);
