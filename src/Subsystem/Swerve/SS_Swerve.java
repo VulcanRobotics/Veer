@@ -9,6 +9,7 @@ import MathObject.O_Vector;
 import MathObject.O_Point;
 import Robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  * @author 1218
@@ -24,9 +25,9 @@ public class SS_Swerve extends Subsystem {
     public SS_Swerve()
     {
         modules[0] = new O_SwerveModule(new O_Point(1,1), RobotMap.SM0_CIM, RobotMap.SM0_CIMile, RobotMap.SM0_banebot, RobotMap.SM0_EncoderA, RobotMap.SM0_EncoderB);
-        modules[1] = new O_SwerveModule(new O_Point(1,-1), RobotMap.SM1_CIM, RobotMap.SM1_CIMile, RobotMap.SM1_banebot, RobotMap.SM1_EncoderA, RobotMap.SM1_EncoderB);
+        modules[1] = new O_SwerveModule(new O_Point(-1,1), RobotMap.SM1_CIM, RobotMap.SM1_CIMile, RobotMap.SM1_banebot, RobotMap.SM1_EncoderA, RobotMap.SM1_EncoderB);
         modules[2] = new O_SwerveModule(new O_Point(-1,-1), RobotMap.SM2_CIM, RobotMap.SM2_CIMile, RobotMap.SM2_banebot, RobotMap.SM2_EncoderA, RobotMap.SM2_EncoderB);
-        modules[3] = new O_SwerveModule(new O_Point(-1,1), RobotMap.SM3_CIM, RobotMap.SM3_CIMile, RobotMap.SM3_banebot, RobotMap.SM3_EncoderA, RobotMap.SM3_EncoderB);
+        modules[3] = new O_SwerveModule(new O_Point(1,-1), RobotMap.SM3_CIM, RobotMap.SM3_CIMile, RobotMap.SM3_banebot, RobotMap.SM3_EncoderA, RobotMap.SM3_EncoderB);
         System.out.println("Swerve Modules Initialized");                
     }
     
@@ -42,10 +43,13 @@ public class SS_Swerve extends Subsystem {
         float maxWheelMagnitude = 0;
         for (int k = 0; k<4; k++){
             O_Vector steeringVector = new O_Vector(center, modules[k].location); //initilizes as a radial vector from turning center to wheel
-            System.out.println(steeringVector.getAngle());
-            steeringVector.rotate(90); // steering vector now faces in direction for rotation
+            //SmartDashboard.putNumber("Wheel" + (k+1) + "Angle", steeringVector.getAngle());
+            steeringVector.rotate90(); // steering vector now faces in direction for rotation
+            //SmartDashboard.putNumber("Wheel" + (k+1) + "Angle", steeringVector.getAngle());
             steeringVector.setMagnitude(turnSpeed);
+            
             System.out.println(steeringVector.getAngle());
+            System.out.println(steeringVector.description());
             
             modules[k].wheelVector = translationVector.add(steeringVector); // add the translation and rotation vectors to get the required wheel vector
             
@@ -65,11 +69,20 @@ public class SS_Swerve extends Subsystem {
         for (int k = 0; k<4; k++) {
             System.out.println("Module number: " + k);
             //System.out.print(k);
+            System.out.println("Vector: " + modules[k].wheelVector.description());
             System.out.println("Wheel Angle: " + modules[k].wheelVector.getAngle());
            // System.out.print(modules[k].wheelVector.getAngle());
             System.out.println("Wheel Power: " + modules[k].wheelVector.getMagnitude());
             //System.out.print();
+            //System.out.println("Vector: " + modules[k].wheelVector.x);
+            //System.out.println("Vector: " + modules[k].wheelVector.y);
         }
+        SmartDashboard.putNumber("Wheel1Angle", modules[0].wheelVector.getAngle());
+       SmartDashboard.putNumber("Wheel2Angle", modules[1].wheelVector.getAngle());
+        SmartDashboard.putNumber("Wheel3Angle", modules[2].wheelVector.getAngle());
+        SmartDashboard.putNumber("Wheel4Angle", modules[3].wheelVector.getAngle());
+        
+  
     }
     
     //convenience method

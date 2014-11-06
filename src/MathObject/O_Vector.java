@@ -41,15 +41,16 @@ public class O_Vector {
         System.out.println(y);
     }
     
-    public void rotate(int rotation)
+    public void rotate90()
     {
-        if (rotation == 90)
-        {
-            float tempX = x;
-            float tempY = y;
-            x = y;
-            y = -x;
-        }
+        // not working now - will be special case for 90
+        //trig is slow, less of it in calculating wheel positions the better
+        
+           //setAngle(getAngle()+90);
+
+        float tempX = x;
+        x = y;
+        y = -tempX;
     }
     public O_Vector subtract(O_Vector subtractVector){
         return new O_Vector(x - subtractVector.x, y- subtractVector.y);
@@ -64,12 +65,13 @@ public class O_Vector {
    }
     public void setMagnitude(float newMagnitude)
     {
+        //System.out.println("newMagnitude is: " + newMagnitude);
         float magnitude = this.getMagnitude();
         if (magnitude == 0){
             System.out.println("error: magnitude of vector is zero");
         }
         float scaleFactor = newMagnitude/magnitude;
-        x = x * scaleFactor;
+        x = x * scaleFactor;   
         y = y * scaleFactor;
     }
     
@@ -84,8 +86,15 @@ public class O_Vector {
             System.out.println("error: magnitude of vector is zero");
   
          y = (float)Math.sin(Math.toRadians((double)angle)) * magnitude;
+         
+         
         x = (float) Math.cos(Math.toRadians((double)angle)) * magnitude;
+        
         }
             
+    }
+    
+    public String description() {
+        return "x: " + String.valueOf(x) + "y: " + String.valueOf(y);
     }
 }

@@ -2,6 +2,8 @@
 package Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -17,6 +19,10 @@ public class OI {
     public static Joystick joystick2 = new Joystick(RobotMap.J2);
     // Button button = new JoystickButton(stick, buttonNumber);
     
+    public static Button leftThumbClick = new JoystickButton(joystick1, 9);
+    
+    public static Button L1 = new JoystickButton(joystick1, 5);
+    public static Button R1 = new JoystickButton(joystick1, 6);
     // Another type of button you can create is a DigitalIOButton, which is
     // a button or switch hooked up to the cypress module. These are useful if
     // you want to build a customized operator interface.
