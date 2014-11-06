@@ -48,8 +48,8 @@ public class SS_Swerve extends Subsystem {
             //SmartDashboard.putNumber("Wheel" + (k+1) + "Angle", steeringVector.getAngle());
             steeringVector.setMagnitude(turnSpeed);
             
-            System.out.println(steeringVector.getAngle());
-            System.out.println(steeringVector.description());
+           // System.out.println(steeringVector.getAngle());
+           // System.out.println(steeringVector.description());
             
             modules[k].wheelVector = translationVector.add(steeringVector); // add the translation and rotation vectors to get the required wheel vector
             
@@ -67,12 +67,12 @@ public class SS_Swerve extends Subsystem {
         }
         // log wheel position
         for (int k = 0; k<4; k++) {
-            System.out.println("Module number: " + k);
+            //System.out.println("Module number: " + k);
             //System.out.print(k);
-            System.out.println("Vector: " + modules[k].wheelVector.description());
-            System.out.println("Wheel Angle: " + modules[k].wheelVector.getAngle());
+           // System.out.println("Vector: " + modules[k].wheelVector.description());
+           // System.out.println("Wheel Angle: " + modules[k].wheelVector.getAngle());
            // System.out.print(modules[k].wheelVector.getAngle());
-            System.out.println("Wheel Power: " + modules[k].wheelVector.getMagnitude());
+           // System.out.println("Wheel Power: " + modules[k].wheelVector.getMagnitude());
             //System.out.print();
             //System.out.println("Vector: " + modules[k].wheelVector.x);
             //System.out.println("Vector: " + modules[k].wheelVector.y);
