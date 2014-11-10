@@ -28,6 +28,9 @@ public class O_TurningMotor {
         motor = new Talon(2,talonPort);
         turningEncoder = new O_TurningEncoder(encoderPortA, encoderPortB);
         PID = new PIDController(Kp, Ki, Kd, turningEncoder, motor);
+        PID.setInputRange(-180, 180);
+        PID.setOutputRange(-1, 1);
+        PID.setContinuous(true);
         PID.enable();
     }
     

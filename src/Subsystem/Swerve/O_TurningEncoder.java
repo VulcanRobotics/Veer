@@ -27,6 +27,7 @@ public class O_TurningEncoder implements PIDSource{
     }
 
     public double pidGet() {
-        return (encoder.get()/countsPerRotation)/360;
+        //needs to return a value between -180 and 180
+        return (encoder.get()/countsPerRotation)/360 - 180;
     }
 }
