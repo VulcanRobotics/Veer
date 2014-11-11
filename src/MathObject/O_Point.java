@@ -6,7 +6,7 @@ package MathObject;
  * and open the template in the editor.
  */
 /**
- *
+ * Stores an X and Y coordinate as a float
  * @author 1218
  */
 public class O_Point {

@@ -25,20 +25,17 @@ public class O_SwerveModule {
     
     public O_Vector wheelVector;
     
-    public O_SwerveModule(O_Point location, int CIMPort, int CIMilePort, int banebotPort, int encoderPortA, int encoderPortB)
-    {
+    public O_SwerveModule(O_Point location, int CIMPort, int CIMilePort, int banebotPort, int encoderPortA, int encoderPortB) {
         this.location = location;
         CIM = new Talon(CIMPort);
         CIMile = new Talon(CIMilePort);
         turningMotor = new O_TurningMotor(banebotPort, encoderPortA, encoderPortB);
     }
     
-    public void update()
-    {
+    public void update() {
         double wheelPower = wheelVector.getMagnitude();
         CIM.set(wheelPower);
         CIMile.set(wheelPower);
-        
         double wheelAngle = wheelVector.getAngle();
     }
 }

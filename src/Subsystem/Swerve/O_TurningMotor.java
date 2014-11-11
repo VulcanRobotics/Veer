@@ -34,8 +34,7 @@ public class O_TurningMotor {
         PID.enable();
     }
     
-    public void setAngle(int angle)
-    {
+    public void setAngle(int angle) {
         PID.setSetpoint(angle);
     }
 }
