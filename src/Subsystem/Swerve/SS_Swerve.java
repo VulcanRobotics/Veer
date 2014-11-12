@@ -42,14 +42,9 @@ public class SS_Swerve extends Subsystem {
         float maxWheelMagnitude = 0;
         for (int k = 0; k<4; k++){
             O_Vector steeringVector = new O_Vector(center, modules[k].location); //initilizes as a radial vector from turning center to wheel
-            //SmartDashboard.putNumber("Wheel" + (k+1) + "Angle", steeringVector.getAngle());
             steeringVector.rotate90(); // steering vector now faces in direction for rotation
-            //SmartDashboard.putNumber("Wheel" + (k+1) + "Angle", steeringVector.getAngle());
             steeringVector.setMagnitude(turnSpeed);
-            
-           // System.out.println(steeringVector.getAngle());
-           // System.out.println(steeringVector.description());
-            
+
             modules[k].wheelVector = translationVector.add(steeringVector); // add the translation and rotation vectors to get the required wheel vector
             
             //check if this wheel has the highest magnitude
@@ -58,23 +53,13 @@ public class SS_Swerve extends Subsystem {
                 maxWheelMagnitude = wheelMagnitude;
             }
         }
+        
         //scale vectors so no wheel has to drive over 100%
         float scaleFactor = (float)1.0/maxWheelMagnitude;
         for (int k = 0; k<4; k++) {
             modules[k].wheelVector.setMagnitude(scaleFactor*modules[k].wheelVector.getMagnitude());
         }
-        // log wheel position
-        for (int k = 0; k<4; k++) {
-            //System.out.println("Module number: " + k);
-            //System.out.print(k);
-           // System.out.println("Vector: " + modules[k].wheelVector.description());
-           // System.out.println("Wheel Angle: " + modules[k].wheelVector.getAngle());
-           // System.out.print(modules[k].wheelVector.getAngle());
-           // System.out.println("Wheel Power: " + modules[k].wheelVector.getMagnitude());
-            //System.out.print();
-            //System.out.println("Vector: " + modules[k].wheelVector.x);
-            //System.out.println("Vector: " + modules[k].wheelVector.y);
-        }
+        
         SmartDashboard.putNumber("Wheel1Angle", modules[0].wheelVector.getAngle());
         SmartDashboard.putNumber("Wheel2Angle", modules[1].wheelVector.getAngle());
         SmartDashboard.putNumber("Wheel3Angle", modules[2].wheelVector.getAngle());
