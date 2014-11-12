@@ -17,18 +17,17 @@ public class O_Vector {
     public float x;
     public float y;
     
-    public O_Vector(float x, float y){
+    public O_Vector(float x, float y) {
         this.x = x;
         this.y = y;
     }
     
-    public O_Vector()
-    {
+    public O_Vector() {
         x = 1;
         y = 1;
     }
     
-    public O_Vector polarVector(int heading, float power){
+    public O_Vector polarVector(int heading, float power) {
         y = (float)Math.sin((double)heading) * power;
         x = (float)Math.cos((double)heading) * power;
         return this;
@@ -41,8 +40,7 @@ public class O_Vector {
         System.out.println(y);
     }
     
-    public void rotate90()
-    {
+    public void rotate90() {
         // not working now - will be special case for 90
         //trig is slow, less of it in calculating wheel positions the better
         
@@ -52,22 +50,20 @@ public class O_Vector {
         x = y;
         y = -tempX;
     }
-    public O_Vector subtract(O_Vector subtractVector){
+    public O_Vector subtract(O_Vector subtractVector) {
         return new O_Vector(x - subtractVector.x, y- subtractVector.y);
     }
     public O_Vector add(O_Vector vectorToAdd) {
         return new O_Vector(x + vectorToAdd.x, y + vectorToAdd.y); 
     }
     
-    public float getMagnitude()
-   {
+    public float getMagnitude() {
       return (float)Math.sqrt((double)(x*x + y*y));
-   }
-    public void setMagnitude(float newMagnitude)
-    {
+    }
+    public void setMagnitude(float newMagnitude) {
         //System.out.println("newMagnitude is: " + newMagnitude);
         float magnitude = this.getMagnitude();
-        if (magnitude == 0){
+        if (magnitude == 0) {
             System.out.println("error: magnitude of vector is zero");
         }
         float scaleFactor = newMagnitude/magnitude;
@@ -75,14 +71,12 @@ public class O_Vector {
         y = y * scaleFactor;
     }
     
-    public int getAngle()
-    { 
+    public int getAngle() { 
        return (int)Math.toDegrees(MathUtils.atan2((double)y, (double)x));
     }
-    public void setAngle(int angle)
-    {
+    public void setAngle(int angle) {
         float magnitude = this.getMagnitude();
-        if (magnitude == 0){
+        if (magnitude == 0) {
             System.out.println("error: magnitude of vector is zero");
   
          y = (float)Math.sin(Math.toRadians((double)angle)) * magnitude;
@@ -90,8 +84,7 @@ public class O_Vector {
          
         x = (float) Math.cos(Math.toRadians((double)angle)) * magnitude;
         
-        }
-            
+        }      
     }
     
     public String description() {

@@ -22,8 +22,7 @@ public class SS_Swerve extends Subsystem {
     /**
      *
      */
-    public SS_Swerve()
-    {
+    public SS_Swerve() {
         modules[0] = new O_SwerveModule(new O_Point(1,1), RobotMap.SM0_CIM, RobotMap.SM0_CIMile, RobotMap.SM0_banebot, RobotMap.SM0_EncoderA, RobotMap.SM0_EncoderB);
         modules[1] = new O_SwerveModule(new O_Point(-1,1), RobotMap.SM1_CIM, RobotMap.SM1_CIMile, RobotMap.SM1_banebot, RobotMap.SM1_EncoderA, RobotMap.SM1_EncoderB);
         modules[2] = new O_SwerveModule(new O_Point(-1,-1), RobotMap.SM2_CIM, RobotMap.SM2_CIMile, RobotMap.SM2_banebot, RobotMap.SM2_EncoderA, RobotMap.SM2_EncoderB);
@@ -35,9 +34,9 @@ public class SS_Swerve extends Subsystem {
     
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new C_Swerve());
-       
-}
+        setDefaultCommand(new C_Swerve());   
+    }
+    
     public void swerve(O_Vector translationVector, O_Point center, float turnSpeed) {
         System.out.println("swerving ...");
         float maxWheelMagnitude = 0;
@@ -55,8 +54,7 @@ public class SS_Swerve extends Subsystem {
             
             //check if this wheel has the highest magnitude
             float wheelMagnitude = modules[k].wheelVector.getMagnitude();
-            if ( wheelMagnitude > maxWheelMagnitude)
-            {
+            if (wheelMagnitude > maxWheelMagnitude) {
                 maxWheelMagnitude = wheelMagnitude;
             }
         }
@@ -78,18 +76,15 @@ public class SS_Swerve extends Subsystem {
             //System.out.println("Vector: " + modules[k].wheelVector.y);
         }
         SmartDashboard.putNumber("Wheel1Angle", modules[0].wheelVector.getAngle());
-       SmartDashboard.putNumber("Wheel2Angle", modules[1].wheelVector.getAngle());
+        SmartDashboard.putNumber("Wheel2Angle", modules[1].wheelVector.getAngle());
         SmartDashboard.putNumber("Wheel3Angle", modules[2].wheelVector.getAngle());
         SmartDashboard.putNumber("Wheel4Angle", modules[3].wheelVector.getAngle());
-        
-  
     }
     
     //convenience method
     public void swerve(int heading, float power, O_Point center, float turnSpeed) {
         O_Vector translationVector = new O_Vector();
         translationVector = translationVector.polarVector(heading, power);
-        
         swerve(translationVector, center, turnSpeed);
     }
 }
