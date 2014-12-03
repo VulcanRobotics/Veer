@@ -5,6 +5,7 @@
  */
 package Subsystem.Swerve;
 
+import Robot.RobotMap;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDSource;
 
@@ -19,7 +20,7 @@ public class O_TurningEncoder implements PIDSource{
     int countsPerRotation = 360;
     
     public O_TurningEncoder(int encoderPort_A, int encoderPort_B) {
-        encoder = new Encoder(encoderPort_A, encoderPort_B);
+        encoder = new Encoder(RobotMap.turnModule, encoderPort_A, RobotMap.turnModule, encoderPort_B);
     }
     
     public void setForward() {

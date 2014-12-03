@@ -8,28 +8,30 @@ package Robot;
  */
 public class RobotMap {
     //Swerve Modules
+        public static final int driveModule = 1;
+        public static final int turnModule = 2;
         //SM0
             public static final int SM0_CIM = 1;
-            public static final int SM0_CIMile = 2;
-            public static final int SM0_banebot = 1;
+            public static final int SM0_CIMile = 1;
+            public static final int SM0_banebot = 5;
             public static final int SM0_EncoderA = 1;
             public static final int SM0_EncoderB = 2;
         //SM1
-            public static final int SM1_CIM = 3;
-            public static final int SM1_CIMile = 4;
-            public static final int SM1_banebot = 2;
+            public static final int SM1_CIM = 2;
+            public static final int SM1_CIMile = 2;
+            public static final int SM1_banebot = 6;
             public static final int SM1_EncoderA = 3;
             public static final int SM1_EncoderB = 4;
         //SM2
-            public static final int SM2_CIM = 5;
-            public static final int SM2_CIMile = 6;
-            public static final int SM2_banebot = 3;
+            public static final int SM2_CIM = 3;
+            public static final int SM2_CIMile = 3;
+            public static final int SM2_banebot = 7;
             public static final int SM2_EncoderA = 5;
             public static final int SM2_EncoderB = 6;
         //SM3
-            public static final int SM3_CIM = 7;
-            public static final int SM3_CIMile = 8;
-            public static final int SM3_banebot = 4;
+            public static final int SM3_CIM = 4;
+            public static final int SM3_CIMile = 4;
+            public static final int SM3_banebot = 8;
             public static final int SM3_EncoderA = 7;
             public static final int SM3_EncoderB = 8;
             

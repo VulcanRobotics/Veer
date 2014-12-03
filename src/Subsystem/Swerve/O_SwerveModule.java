@@ -7,7 +7,9 @@ package Subsystem.Swerve;
  */
 import MathObject.O_Vector;
 import MathObject.O_Point;
+import Robot.RobotMap;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 
 //forked version
 
@@ -19,16 +21,16 @@ public class O_SwerveModule {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     public O_Point location;  
-    Talon CIM;
-    Talon CIMile;
+    Victor CIM;
+    Victor CIMile;
     O_TurningMotor turningMotor;
     
     public O_Vector wheelVector;
     
     public O_SwerveModule(O_Point location, int CIMPort, int CIMilePort, int banebotPort, int encoderPortA, int encoderPortB) {
         this.location = location;
-        CIM = new Talon(CIMPort);
-        CIMile = new Talon(CIMilePort);
+        CIM = new Victor(RobotMap.driveModule, CIMPort);
+        CIMile = new Victor(RobotMap.driveModule, CIMilePort);
         turningMotor = new O_TurningMotor(banebotPort, encoderPortA, encoderPortB);
     }
     
