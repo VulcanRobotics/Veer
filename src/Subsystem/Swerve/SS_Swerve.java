@@ -58,6 +58,7 @@ public class SS_Swerve extends Subsystem {
         float scaleFactor = (float)1.0/maxWheelMagnitude;
         for (int k = 0; k<4; k++) {
             modules[k].wheelVector.setMagnitude(scaleFactor*modules[k].wheelVector.getMagnitude());
+            modules[k].update();
         }
         
         SmartDashboard.putNumber("Wheel1Angle", modules[0].wheelVector.getAngle());
