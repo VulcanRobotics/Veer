@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.Talon;
  */
 public class O_TurningMotor {
 
-    private static final double Kp = 0.0;
+    private static final double Kp = 1.0;
     private static final double Ki = 0.0;
     private static final double Kd = 0.0;
 
@@ -25,11 +25,11 @@ public class O_TurningMotor {
     
     // Initialize your subsystem here
     public O_TurningMotor(int talonPort, int encoderPortA, int encoderPortB) {
-        motor = new Talon(2,talonPort); //turing motors on digital breakout 2
+        motor = new Talon(2 ,talonPort); //turing motors on digital breakout 2
         turningEncoder = new O_TurningEncoder(encoderPortA, encoderPortB);
         PID = new PIDController(Kp, Ki, Kd, turningEncoder, motor);
         PID.setInputRange(-180, 180);
-        PID.setOutputRange(-1, 1);
+        PID.setOutputRange(-3, .3);
         PID.setContinuous(true);
         PID.enable();
     }
