@@ -14,10 +14,10 @@ import com.sun.squawk.util.MathUtils;
  * @author 1218
  */
 public class O_Vector {
-    public float x;
-    public float y;
+    public double x;
+    public double y;
     
-    public O_Vector(float x, float y) {
+    public O_Vector(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -27,9 +27,9 @@ public class O_Vector {
         y = 1;
     }
     
-    public O_Vector polarVector(int heading, float power) {
-        y = (float)Math.sin((double)heading) * power;
-        x = (float)Math.cos((double)heading) * power;
+    public O_Vector polarVector(int heading, double power) {
+        y = Math.sin(heading) * power;
+        x = Math.cos(heading) * power;
         return this;
     }
     
@@ -46,7 +46,7 @@ public class O_Vector {
         
            //setAngle(getAngle()+90);
 
-        float tempX = x;
+        double tempX = x;
         x = y;
         y = -tempX;
     }
@@ -57,32 +57,32 @@ public class O_Vector {
         return new O_Vector(x + vectorToAdd.x, y + vectorToAdd.y); 
     }
     
-    public float getMagnitude() {
-      return (float)Math.sqrt((double)(x*x + y*y));
+    public double getMagnitude() {
+      return Math.sqrt((x * x + y * y));
     }
-    public void setMagnitude(float newMagnitude) {
+    public void setMagnitude(double newMagnitude) {
         //System.out.println("newMagnitude is: " + newMagnitude);
-        float magnitude = this.getMagnitude();
+        double magnitude = this.getMagnitude();
         if (magnitude == 0) {
             System.out.println("error: magnitude of vector is zero");
         }
-        float scaleFactor = newMagnitude/magnitude;
+        double scaleFactor = newMagnitude / magnitude;
         x = x * scaleFactor;   
         y = y * scaleFactor;
     }
     
     public int getAngle() { 
-       return (int)Math.toDegrees(MathUtils.atan2((double)y, (double)x));
+       return (int)Math.toDegrees(MathUtils.atan2(y, x));
     }
     public void setAngle(int angle) {
-        float magnitude = this.getMagnitude();
+        double magnitude = this.getMagnitude();
         if (magnitude == 0) {
             System.out.println("error: magnitude of vector is zero");
   
-         y = (float)Math.sin(Math.toRadians((double)angle)) * magnitude;
+         y = Math.sin(Math.toRadians(angle)) * magnitude;
          
          
-        x = (float) Math.cos(Math.toRadians((double)angle)) * magnitude;
+        x =  Math.cos(Math.toRadians(angle)) * magnitude;
         
         }      
     }

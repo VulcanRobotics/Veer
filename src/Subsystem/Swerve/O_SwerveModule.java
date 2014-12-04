@@ -8,7 +8,6 @@ package Subsystem.Swerve;
 import MathObject.O_Vector;
 import MathObject.O_Point;
 import Robot.RobotMap;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 
 //forked version

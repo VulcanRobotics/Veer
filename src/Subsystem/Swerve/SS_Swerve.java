@@ -37,9 +37,9 @@ public class SS_Swerve extends Subsystem {
         setDefaultCommand(new C_Swerve());   
     }
     
-    public void swerve(O_Vector translationVector, O_Point center, float turnSpeed) {
+    public void swerve(O_Vector translationVector, O_Point center, double turnSpeed) {
         System.out.println("swerving ...");
-        float maxWheelMagnitude = 0;
+        double maxWheelMagnitude = 0;
         for (int k = 0; k<4; k++){
             O_Vector steeringVector = new O_Vector(center, modules[k].location); //initilizes as a radial vector from turning center to wheel
             steeringVector.rotate90(); // steering vector now faces in direction for rotation
@@ -48,14 +48,14 @@ public class SS_Swerve extends Subsystem {
             modules[k].wheelVector = translationVector.add(steeringVector); // add the translation and rotation vectors to get the required wheel vector
             
             //check if this wheel has the highest magnitude
-            float wheelMagnitude = modules[k].wheelVector.getMagnitude();
+            double wheelMagnitude = modules[k].wheelVector.getMagnitude();
             if (wheelMagnitude > maxWheelMagnitude) {
                 maxWheelMagnitude = wheelMagnitude;
             }
         }
         
         //scale vectors so no wheel has to drive over 100%
-        float scaleFactor = (float)1.0/maxWheelMagnitude;
+        double scaleFactor = 1.0 / maxWheelMagnitude;
         for (int k = 0; k<4; k++) {
             modules[k].wheelVector.setMagnitude(scaleFactor*modules[k].wheelVector.getMagnitude());
             modules[k].update();
@@ -68,7 +68,7 @@ public class SS_Swerve extends Subsystem {
     }
     
     //convenience method
-    public void swerve(int heading, float power, O_Point center, float turnSpeed) {
+    public void swerve(int heading, double power, O_Point center, double turnSpeed) {
         O_Vector translationVector = new O_Vector();
         translationVector = translationVector.polarVector(heading, power);
         swerve(translationVector, center, turnSpeed);

@@ -6,13 +6,13 @@ package MathObject;
  * and open the template in the editor.
  */
 /**
- * Stores an X and Y coordinate as a float
+ * Stores an X and Y coordinate as a double
  * @author 1218
  */
 public class O_Point {
-    float x;
-    float y;
-    public O_Point ( float x, float y) {
+    double x;
+    double y;
+    public O_Point ( double x, double y) {
         this.x = x;
         this.y = y;
     }
