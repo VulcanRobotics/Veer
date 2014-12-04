@@ -26,11 +26,9 @@ public class O_TurningMotor {
     
     // Initialize your subsystem here
     public O_TurningMotor(int talonPort, int encoderPortA, int encoderPortB) {
-<<<<<<< HEAD
-        motor = new Talon(2 ,talonPort); //turing motors on digital breakout 2
-=======
+
         motor = new Talon(RobotMap.turnModule, talonPort); //turing motors on digital breakout 2
->>>>>>> d3e3dbad06325767419b5a4ad413eefa15e5ecd1
+
         turningEncoder = new O_TurningEncoder(encoderPortA, encoderPortB);
         PID = new PIDController(Kp, Ki, Kd, turningEncoder, motor);
         PID.setInputRange(-180, 180);
