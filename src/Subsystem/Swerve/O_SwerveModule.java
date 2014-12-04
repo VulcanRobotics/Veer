@@ -7,6 +7,7 @@ package Subsystem.Swerve;
  */
 import MathObject.O_Vector;
 import MathObject.O_Point;
+import Robot.RobotMap;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 
@@ -29,8 +30,13 @@ public class O_SwerveModule {
     public O_SwerveModule(O_Point location, int CIMPort, int CIMilePort, int banebotPort, int encoderPortA, int encoderPortB) {
         System.out.println("intilizing swerve module ");
         this.location = location;
+<<<<<<< HEAD
         CIM = new Victor(1, CIMPort);
         CIMile = new Victor(1, CIMilePort);
+=======
+        CIM = new Victor(RobotMap.driveModule, CIMPort);
+        CIMile = new Victor(RobotMap.driveModule, CIMilePort);
+>>>>>>> d3e3dbad06325767419b5a4ad413eefa15e5ecd1
         turningMotor = new O_TurningMotor(banebotPort, encoderPortA, encoderPortB);
     }
     
