@@ -16,10 +16,12 @@ import edu.wpi.first.wpilibj.PIDSource;
 public class O_TurningEncoder implements PIDSource{
 
     Encoder encoder;
-    int countsPerRotation = 360;
+    int countsPerRotation = 10;
     
     public O_TurningEncoder(int encoderPort_A, int encoderPort_B) {
-        encoder = new Encoder(encoderPort_A, encoderPort_B);
+        encoder = new Encoder(2, encoderPort_A, 2, encoderPort_B);
+        encoder.setDistancePerPulse(1.0);
+        encoder.start();
     }
     
     public void setForward() {
@@ -28,6 +30,14 @@ public class O_TurningEncoder implements PIDSource{
 
     public double pidGet() {
         //needs to return a value between -180 and 180
-        return (encoder.get()/countsPerRotation)/360 - 180;
+        encoder.start();
+        //System.out.println(encoder.get());
+        double encoderRawValue = (encoder.get()/countsPerRotation);
+        while (encoderRawValue > 360)
+        {
+            encoderRawValue = encoderRawValue - 360;
+        }
+        //System.out.println(encoder.get());
+        return encoderRawValue - 180;
     }
 }

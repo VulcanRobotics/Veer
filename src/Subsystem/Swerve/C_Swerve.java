@@ -24,6 +24,8 @@ public class C_Swerve extends CommandBase {
     }
 
     protected void execute() {
+        swerve.swerve(new O_Vector(0.4f, .4f), new O_Point(0,0), 0);
+        /*
         if (!OI.leftThumbClick.get()) {
             boolean shouldRunTwist = true;
             if (OI.joystick1.getRawAxis(3) > 0.4) { //back left button, front left wheel
@@ -56,6 +58,7 @@ public class C_Swerve extends CommandBase {
             System.out.println("snake mode");
             swerve.swerve(new O_Vector(0, 0), new O_Point(0, 1/((float)OI.joystick1.getRawAxis(4) + 0.02f )), (float)OI.joystick1.getY() * getSin(OI.joystick1.getRawAxis(4)));
         }
+                */
     }
 
     float getSin(double value) {
