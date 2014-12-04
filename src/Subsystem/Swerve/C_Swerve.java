@@ -1,80 +1,49 @@
-package Subsystem.Swerve;
-
-import MathObject.O_Point;
-import Robot.CommandBase;
-import MathObject.O_Vector;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Subsystem.Swerve;
+
+import Robot.CommandBase;
+import Robot.OI;
+
 /**
  *
- * @author 1218
+ * @author afiol-mahon
  */
 public class C_Swerve extends CommandBase {
-
+    
     public C_Swerve() {
         requires(swerve);
     }
 
+    // Called just before this Command runs the first time
     protected void initialize() {
-        
     }
+    
+    double turnConstant = 0.707;
 
+    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        swerve.swerve(new O_Vector(0.4, .4), new O_Point(0,0), 0);
-        /*
-        if (!OI.leftThumbClick.get()) {
-            boolean shouldRunTwist = true;
-            if (OI.joystick1.getRawAxis(3) > 0.4) { //back left button, front left wheel
-                System.out.println("turning of front left wheel");
-                swerve.swerve(new O_Vector(0, 0), new O_Point(1,-1), OI.joystick1.getRawAxis(4));
-                shouldRunTwist = false;
-            }
-            if (OI.joystick1.getRawAxis(3) < -0.4) { //back right button, front right wheel
-                System.out.println("turning of front right wheel");
-                swerve.swerve(new O_Vector(0, 0), new O_Point(1,1), OI.joystick1.getRawAxis(4));
-                shouldRunTwist = false;
-            }
-             if (OI.R1.get()) { //back right wheel
-                System.out.println("turning of back right wheel");
-                swerve.swerve(new O_Vector(0, 0), new O_Point(-1,1), -1*OI.joystick1.getRawAxis(4));
-               shouldRunTwist = false;
-            }
-             if (OI.L1.get()) { //back left wheel
-                System.out.println("turning of back left wheel");
-                swerve.swerve(new O_Vector(0, 0), new O_Point(-1,-1), -1*OI.joystick1.getRawAxis(4));
-                shouldRunTwist = false;
-            }
-            if (shouldRunTwist) {
-                System.out.println("swerve twisting");
-                swerve.swerve(new O_Vector(-OI.joystick1.getY(), OI.joystick1.getX()), new O_Point(0,0), -1*OI.joystick1.getRawAxis(4));
-            }
-        }
-        else {
-            //snake mode
-            System.out.println("snake mode");
-            swerve.swerve(new O_Vector(0, 0), new O_Point(0, 1/(OI.joystick1.getRawAxis(4) + 0.02 )), OI.joystick1.getY() * getSin(OI.joystick1.getRawAxis(4)));
-        }
-                */
+        double leftX = OI.joystick1.getRawAxis(1);
+        double leftY = OI.joystick1.getRawAxis(2);
+        double rightX = OI.joystick1.getRawAxis(4);
+        
+        swerve.module[0].setAngle(Math.tan(leftY - rightX * turnConsant)/(leftX + rightX*turnConstant));
     }
 
-    float getSin(double value) {
-        if (value >= 0) {
-            return 1;
-        }
-        else {
-            return -1;
-        }
-    }
+    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;
     }
 
+    // Called once after isFinished returns true
     protected void end() {
     }
 
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
     protected void interrupted() {
     }
 }
