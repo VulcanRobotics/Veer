@@ -31,12 +31,16 @@ public class O_Module {
         cimile = new Victor(RobotMap.driveModule, CimilePort);
         turnMotor = new Talon(RobotMap.turnModule, turnPort);
         turnEncoder = new Encoder(turnEncoderA, turnEncoderB);
-        turnEncoder.setPIDSourceParameter(PIDSource.PIDSourceParameter.kAngle);
-        turn = new PIDController(0.01, 0.01, 0.01, turnEncoder, turnMotor);
+        turnEncoder.setPIDSourceParameter(PIDSource.PIDSourceParameter.kDistance);
+        turnEncoder.setDistancePerPulse(2000/360);
+        turnEncoder.start();
+        turn = new PIDController(1.0, 0.1, 0.1, turnEncoder, turnMotor);
         turn.setContinuous();
+        turn.enable();
     }
     
-    public void setAngle(int angle) {
+    public void setAngle(double angle) {
         turn.setSetpoint(angle);
+        System.out.println(turnEncoder.getDistance());
     }
 }

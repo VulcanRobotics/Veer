@@ -7,6 +7,7 @@ package Subsystem.Swerve;
 
 import Robot.CommandBase;
 import Robot.OI;
+import com.sun.squawk.util.MathUtils;
 
 /**
  *
@@ -20,6 +21,7 @@ public class C_Swerve extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        
     }
     
     double turnConstant = 0.707;
@@ -30,7 +32,7 @@ public class C_Swerve extends CommandBase {
         double leftY = OI.joystick1.getRawAxis(2);
         double rightX = OI.joystick1.getRawAxis(4);
         
-        swerve.module[0].setAngle(Math.tan(leftY - rightX * turnConsant)/(leftX + rightX*turnConstant));
+        swerve.module.setAngle(MathUtils.atan((leftY - rightX * turnConstant) / (leftX + rightX * turnConstant)));
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -40,6 +42,7 @@ public class C_Swerve extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+        
     }
 
     // Called when another command which requires one or more of the same
