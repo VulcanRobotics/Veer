@@ -9,7 +9,9 @@ import MathObject.O_Vector;
 import MathObject.O_Point;
 import Robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import java.util.Vector;
 /**
  *
  * @author 1218
@@ -27,7 +29,8 @@ public class SS_Swerve extends Subsystem {
         modules[1] = new O_SwerveModule(new O_Point(-1,1), RobotMap.SM1_CIM, RobotMap.SM1_CIMile, RobotMap.SM1_banebot, RobotMap.SM1_EncoderA, RobotMap.SM1_EncoderB);
         modules[2] = new O_SwerveModule(new O_Point(-1,-1), RobotMap.SM2_CIM, RobotMap.SM2_CIMile, RobotMap.SM2_banebot, RobotMap.SM2_EncoderA, RobotMap.SM2_EncoderB);
         modules[3] = new O_SwerveModule(new O_Point(1,-1), RobotMap.SM3_CIM, RobotMap.SM3_CIMile, RobotMap.SM3_banebot, RobotMap.SM3_EncoderA, RobotMap.SM3_EncoderB);
-        System.out.println("Swerve Modules Initialized");                
+        System.out.println("Swerve Modules Initialized");          
+     
     }
     
     
@@ -39,6 +42,7 @@ public class SS_Swerve extends Subsystem {
     
     public void swerve(O_Vector translationVector, O_Point center, double turnSpeed) {
         System.out.println("swerving ...");
+        
         double maxWheelMagnitude = 0;
         for (int k = 0; k<4; k++){
             O_Vector steeringVector = new O_Vector(center, modules[k].location); //initilizes as a radial vector from turning center to wheel
@@ -65,6 +69,7 @@ public class SS_Swerve extends Subsystem {
         SmartDashboard.putNumber("Wheel2Angle", modules[1].wheelVector.getAngle());
         SmartDashboard.putNumber("Wheel3Angle", modules[2].wheelVector.getAngle());
         SmartDashboard.putNumber("Wheel4Angle", modules[3].wheelVector.getAngle());
+
     }
     
     //convenience method

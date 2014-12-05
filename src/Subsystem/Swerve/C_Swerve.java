@@ -3,6 +3,7 @@ package Subsystem.Swerve;
 import MathObject.O_Point;
 import Robot.CommandBase;
 import MathObject.O_Vector;
+import Robot.OI;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -23,8 +24,8 @@ public class C_Swerve extends CommandBase {
     }
 
     protected void execute() {
-        swerve.swerve(new O_Vector(0.4, .4), new O_Point(0,0), 0);
-        /*
+        
+        
         if (!OI.leftThumbClick.get()) {
             boolean shouldRunTwist = true;
             if (OI.joystick1.getRawAxis(3) > 0.4) { //back left button, front left wheel
@@ -57,7 +58,7 @@ public class C_Swerve extends CommandBase {
             System.out.println("snake mode");
             swerve.swerve(new O_Vector(0, 0), new O_Point(0, 1/(OI.joystick1.getRawAxis(4) + 0.02 )), OI.joystick1.getY() * getSin(OI.joystick1.getRawAxis(4)));
         }
-                */
+                
     }
 
     float getSin(double value) {

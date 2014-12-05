@@ -9,6 +9,7 @@ import MathObject.O_Vector;
 import MathObject.O_Point;
 import Robot.RobotMap;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 //forked version
 
@@ -41,6 +42,7 @@ public class O_SwerveModule {
         double wheelAngle = wheelVector.getAngle();
         turningMotor.setAngle((int)wheelAngle);
         turningMotor.PID.enable();
+        
         System.out.println(turningMotor.turningEncoder.pidGet());
     }
 }

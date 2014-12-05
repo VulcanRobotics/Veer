@@ -9,6 +9,8 @@ package Subsystem.Swerve;
 import Robot.RobotMap;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  *
@@ -16,9 +18,9 @@ import edu.wpi.first.wpilibj.Talon;
  */
 public class O_TurningMotor {
 
-    private static final double Kp = 1.0;
-    private static final double Ki = 0.0;
-    private static final double Kd = 0.0;
+    private double Kp = .10;
+    private double Ki = 0.0;
+    private double Kd = 0.0;
 
     Talon motor;
     O_TurningEncoder turningEncoder;
@@ -27,17 +29,52 @@ public class O_TurningMotor {
     // Initialize your subsystem here
     public O_TurningMotor(int talonPort, int encoderPortA, int encoderPortB) {
 
+        
+        
         motor = new Talon(RobotMap.turnModule, talonPort); //turing motors on digital breakout 2
 
         turningEncoder = new O_TurningEncoder(encoderPortA, encoderPortB);
-        PID = new PIDController(Kp, Ki, Kd, turningEncoder, motor);
-        PID.setInputRange(-180, 180);
-        PID.setOutputRange(-3, .3);
-        PID.setContinuous(true);
-        PID.enable();
+        //motor.set(0.3);
+        
+        setUpPID();
+        updateDashboard();
     }
     
     public void setAngle(int angle) {
+        updateDashboard();
         PID.setSetpoint(angle);
+    }
+    
+    
+    public void updateDashboard() {
+        if (motor.getChannel() == 4)
+        {
+            SmartDashboard.putNumber("WheelAngle", turningEncoder.pidGet());
+           SmartDashboard.putNumber("PIDTarget", PID.getSetpoint());
+        
+        }
+        if (Kp != SmartDashboard.getNumber("TurningP", 6)) {
+            Kp = SmartDashboard.getNumber("TurningP", 6);
+            setUpPID();
+            
+        }
+        if (Kd != SmartDashboard.getNumber("TurningI", 2)) {
+            Kd = SmartDashboard.getNumber("TurningI", 2);
+            setUpPID();
+        }
+        if (Kd != SmartDashboard.getNumber("TurningD", 1)) {
+            Kd = SmartDashboard.getNumber("TurningD", 1);
+            setUpPID();
+        }
+        
+        System.out.println(PID.getP());
+    }
+    
+    void setUpPID() {
+        PID = new PIDController(Kp, Ki, Kd, turningEncoder, motor);
+        PID.setInputRange(-180, 180);
+        PID.setOutputRange(-.3, .3);
+        PID.setContinuous(true);
+        PID.enable();
     }
 }

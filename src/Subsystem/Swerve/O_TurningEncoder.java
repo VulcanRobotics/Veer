@@ -6,8 +6,10 @@
 package Subsystem.Swerve;
 
 import Robot.RobotMap;
+import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -17,14 +19,12 @@ import edu.wpi.first.wpilibj.PIDSource;
 public class O_TurningEncoder implements PIDSource{
 
     Encoder encoder;
-    int countsPerRotation = 10;
     
     public O_TurningEncoder(int encoderPort_A, int encoderPort_B) {
 
-        encoder = new Encoder(2, encoderPort_A, 2, encoderPort_B);
-        encoder.setDistancePerPulse(1.0);
+        encoder = new Encoder(RobotMap.turnModule, encoderPort_A, RobotMap.turnModule, encoderPort_B, true, CounterBase.EncodingType.k4X);
+        encoder.setDistancePerPulse(1);
         encoder.start();
-        encoder = new Encoder(RobotMap.turnModule, encoderPort_A, RobotMap.turnModule, encoderPort_B);
 
     }
     
@@ -36,12 +36,16 @@ public class O_TurningEncoder implements PIDSource{
         //needs to return a value between -180 and 180
         encoder.start();
         //System.out.println(encoder.get());
-        double encoderRawValue = (encoder.get()/countsPerRotation);
-        while (encoderRawValue > 360)
-        {
-            encoderRawValue = encoderRawValue - 360;
+        //double numberOfClicks = SmartDashboard.getNumber("NC", 7000);
+        if (encoder.getRaw() > 0) {
+            System.out.println("Encoder is: " + (((( encoder.getRaw()/10000)*360.0) % 360.0) - 180));
+            return ((( encoder.getRaw()/10000)*360.0) % 360.0) - 180;
         }
-        //System.out.println(encoder.get());
-        return encoderRawValue - 180;
+        else
+        {
+            System.out.println("Encoder is: " + (((( encoder.getRaw()/10000)*360.0) % 360.0) + 180));
+            return ((( encoder.getRaw()/10000)*360.0) % 360.0) + 180;
+        }
+        
     }
 }
