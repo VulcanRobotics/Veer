@@ -40,4 +40,7 @@ public class RobotMap {
            public static final int J1 = 1;
            public static final int J2 = 2;
            
+        //Compressor
+           public static final int Compressor_Relay = 1;
+           public static final int Compressor_Switch = 14;
 }
