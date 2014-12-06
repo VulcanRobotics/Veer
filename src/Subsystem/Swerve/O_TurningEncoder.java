@@ -36,15 +36,15 @@ public class O_TurningEncoder implements PIDSource{
         //needs to return a value between -180 and 180
         encoder.start();
         //System.out.println(encoder.get());
-        //double numberOfClicks = SmartDashboard.getNumber("NC", 7000);
+        double numberOfClicks = SmartDashboard.getNumber("NC", 7000);
         if (encoder.getRaw() > 0) {
-            System.out.println("Encoder is: " + (((( encoder.getRaw()/10000)*360.0) % 360.0) - 180));
-            return ((( encoder.getRaw()/10000)*360.0) % 360.0) - 180;
+            System.out.println("Encoder is: " + (((( encoder.getRaw()/numberOfClicks)*360.0) % 360.0) - 180));
+            return ((( encoder.getRaw()/numberOfClicks)*360.0) % 360.0) - 180;
         }
         else
         {
-            System.out.println("Encoder is: " + (((( encoder.getRaw()/10000)*360.0) % 360.0) + 180));
-            return ((( encoder.getRaw()/10000)*360.0) % 360.0) + 180;
+            System.out.println("Encoder is: " + (((( encoder.getRaw()/numberOfClicks)*360.0) % 360.0) + 180));
+            return ((( encoder.getRaw()/numberOfClicks)*360.0) % 360.0) + 180;
         }
         
     }
