@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.Vector;
+
 /**
  *
  * @author 1218
@@ -48,22 +49,33 @@ public class SS_Swerve extends Subsystem {
             O_Vector steeringVector = new O_Vector(center, modules[k].location); //initilizes as a radial vector from turning center to wheel
             steeringVector.rotate90(); // steering vector now faces in direction for rotation
             steeringVector.setMagnitude(turnSpeed);
-
+            System.out.println("Steering: " + steeringVector.getMagnitude());
+            System.out.println("Power: " + translationVector.getMagnitude());
+            
             modules[k].wheelVector = translationVector.add(steeringVector); // add the translation and rotation vectors to get the required wheel vector
+            System.out.println("Final: " + modules[k].wheelVector.getMagnitude());
             
             //check if this wheel has the highest magnitude
             double wheelMagnitude = modules[k].wheelVector.getMagnitude();
             if (wheelMagnitude > maxWheelMagnitude) {
                 maxWheelMagnitude = wheelMagnitude;
             }
+            
         }
         
+        System.out.println("Max Wheel: " + maxWheelMagnitude);
         //scale vectors so no wheel has to drive over 100%
-        double scaleFactor = 1.0 / maxWheelMagnitude;
-        for (int k = 0; k<4; k++) {
-            modules[k].wheelVector.setMagnitude(scaleFactor*modules[k].wheelVector.getMagnitude());
-            modules[k].update();
+        if (maxWheelMagnitude > 1) { //otherwise Garentess tha there will be a wheel at 100% power - not good when stopped
+                 double scaleFactor = 1.0 / maxWheelMagnitude;
+             for (int k = 0; k<4; k++) {
+                 modules[k].wheelVector.setMagnitude(scaleFactor*modules[k].wheelVector.getMagnitude());
+                 
+            }
         }
+        for (int k = 0; k<4; k++) {
+           modules[k].update();
+        }
+        
         
         SmartDashboard.putNumber("Wheel1Angle", modules[0].wheelVector.getAngle());
         SmartDashboard.putNumber("Wheel2Angle", modules[1].wheelVector.getAngle());
