@@ -57,7 +57,7 @@ public class O_SwerveModule {
         setPower(wheelVector.getMagnitude());
         turn.setPID(SmartDashboard.getNumber("TurningP"), 0, 0);
         
-        if (turnMotor.getChannel() == 4) {
+        if (turnMotor.getChannel() == 2) {
             SmartDashboard.putNumber("WheelAngle", turnEncoder.pidGet());
             SmartDashboard.putNumber("PIDTarget", turn.getSetpoint());
         }
@@ -82,12 +82,15 @@ class TurnEncoder implements PIDSource{
     Encoder encoder;
     
     public TurnEncoder(int APort, int BPort){
-        encoder = new Encoder(2, APort, 2, BPort, true, CounterBase.EncodingType.k4X);
-        encoder.setDistancePerPulse(360.0/410.0);
+        boolean shouldReverse = false;
+        if (APort == RobotMap.SM3_EncoderA || APort == RobotMap.SM2_EncoderA) {
+            shouldReverse = true;
+        }
+       
+        encoder = new Encoder(2, APort, 2, BPort, shouldReverse, CounterBase.EncodingType.k4X);
+        encoder.setDistancePerPulse(500.0/410.0);
         encoder.start();
     }
-    
-    
     
     public double pidGet () {
         double angle = encoder.getDistance() % 360.0;
