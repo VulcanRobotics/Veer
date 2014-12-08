@@ -35,20 +35,22 @@ public class O_SwerveModule {
     Talon turnMotor;
     TurnEncoder turnEncoder;
     
-    public PIDController turn;
+    PIDController turn;
     
     boolean isZeroing;
-    public O_SwerveModule(O_Point center, int CimPort, int CimilePort, int turnPort, int turnEncoderA, int turnEncoderB, int zeroPort){
+
+    public O_SwerveModule(O_Point center, int CimPort, int CimilePort, int turnPort, int turnEncoderA, int turnEncoderB, int zeroPort, double zeroOffset){
         location = center;
         
         cim = new Victor(RobotMap.driveModule, CimPort);
+        cim.setExpiration(0.5);
         cimile = new Victor(RobotMap.driveModule, CimilePort);
+        cimile.setExpiration(0.5);
         turnMotor = new Talon(RobotMap.turnModule, turnPort);
-        turnMotor.setExpiration(.1);
-        turnEncoder = new TurnEncoder(turnEncoderA, turnEncoderB, zeroPort);
+        turnMotor.setExpiration(.5);
+        turnEncoder = new TurnEncoder(turnEncoderA, turnEncoderB, zeroPort, zeroOffset);
        
         isZeroing = false;
-        
         
         turn = new PIDController(1.0, 0.1, 0.1, turnEncoder, turnMotor, .0010);
         turn.setInputRange(-180, 180);
@@ -56,6 +58,8 @@ public class O_SwerveModule {
         turn.setContinuous();
         
         turn.enable();
+        
+        
     }
     
     void update() {
@@ -83,14 +87,15 @@ public class O_SwerveModule {
             
             if (turnEncoder.zeroSensor.get()) {
                 turnMotor.set(0);
-                turnEncoder.offset = turnEncoder.pidGet(); //distance module is off correct amount
+                turnEncoder.zero();
                 isZeroing = false;
                 turn.enable();
             }
              else
             {
-                  turnMotor.set(0.7);
-                  turn.disable();
+                turn.disable();
+                  turnMotor.set(0.15);
+                  
             }
     }
     }
@@ -103,7 +108,7 @@ public class O_SwerveModule {
     
     public void setPower(double power) {
         cim.set(power);
-        cimile.set(power);
+        cimile.set(-power);
     }
 }
 
@@ -112,28 +117,34 @@ class TurnEncoder implements PIDSource{
     Encoder encoder;
     DigitalInput zeroSensor;
     
-    double offset;
+    double offset; // how far the module has to be adjusted to make the dash zero
+    double zeroOffset; //how far the groove is away from "true zero" (wheels facing north)
     
-    
-    public TurnEncoder(int APort, int BPort, int zeroPort){
+    public TurnEncoder(int APort, int BPort, int zeroPort, double zeroOffset){
         boolean shouldReverse = false;
-        if (APort == RobotMap.SM3_EncoderA || APort == RobotMap.SM2_EncoderA) {
+        if (APort == RobotMap.SM3_EncoderA || APort == RobotMap.SM2_EncoderA ) {
             shouldReverse = true;
         }
        
         zeroSensor = new DigitalInput(RobotMap.turnModule, zeroPort);
         offset = 0;
+        this.zeroOffset = zeroOffset;
         
         encoder = new Encoder(2, APort, 2, BPort, shouldReverse, CounterBase.EncodingType.k4X);
-        encoder.setDistancePerPulse(500.0/360.0);
+        encoder.setDistancePerPulse(360.0/500.0);
         encoder.start();
     }
     
     public double pidGet () {
-        double angle = (encoder.getDistance() - offset) % 360.0;
+        double angle = (encoder.getDistance() - offset + zeroOffset) % 360.0;
         if (angle < 0) {
             angle = angle + 360;
+            
         }
         return (angle - 180);
+    }
+    
+    public void zero () {
+        offset = encoder.getDistance();
     }
 }
