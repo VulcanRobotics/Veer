@@ -9,6 +9,7 @@ import MathObject.O_Vector;
 import MathObject.O_Point;
 import Robot.RobotMap;
 import edu.wpi.first.wpilibj.CounterBase;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -36,33 +37,62 @@ public class O_SwerveModule {
     
     public PIDController turn;
     
-    public O_SwerveModule(O_Point center, int CimPort, int CimilePort, int turnPort, int turnEncoderA, int turnEncoderB){
+    boolean isZeroing;
+    public O_SwerveModule(O_Point center, int CimPort, int CimilePort, int turnPort, int turnEncoderA, int turnEncoderB, int zeroPort){
         location = center;
         
         cim = new Victor(RobotMap.driveModule, CimPort);
         cimile = new Victor(RobotMap.driveModule, CimilePort);
         turnMotor = new Talon(RobotMap.turnModule, turnPort);
-        turnEncoder = new TurnEncoder(turnEncoderA, turnEncoderB);
+        turnMotor.setExpiration(.1);
+        turnEncoder = new TurnEncoder(turnEncoderA, turnEncoderB, zeroPort);
+       
+        isZeroing = false;
+        
         
         turn = new PIDController(1.0, 0.1, 0.1, turnEncoder, turnMotor, .0010);
         turn.setInputRange(-180, 180);
-        turn.setOutputRange(-.3, .3);
+        turn.setOutputRange(-.5, .5);
         turn.setContinuous();
         
         turn.enable();
     }
     
     void update() {
+        
         setAngle(wheelVector.getAngle());
         setPower(wheelVector.getMagnitude());
-        turn.setPID(SmartDashboard.getNumber("TurningP"), 0, 0);
+        turn.setPID(SmartDashboard.getNumber("TurningP", 0.01),
+                    SmartDashboard.getNumber("TurningI", 0.0),
+                    SmartDashboard.getNumber("TurningD", 0.0));
         
-        if (turnMotor.getChannel() == 2) {
+        if (turnMotor.getChannel() == 4) {
             SmartDashboard.putNumber("WheelAngle", turnEncoder.pidGet());
             SmartDashboard.putNumber("PIDTarget", turn.getSetpoint());
         }
         SmartDashboard.putNumber("Power" + turnMotor.getChannel(), wheelVector.getMagnitude());
-        
+        if (isZeroing) {
+            zero();
+        }
+    }
+    
+    void zero() {
+       
+       if (isZeroing) {
+       
+            
+            if (turnEncoder.zeroSensor.get()) {
+                turnMotor.set(0);
+                turnEncoder.offset = turnEncoder.pidGet(); //distance module is off correct amount
+                isZeroing = false;
+                turn.enable();
+            }
+             else
+            {
+                  turnMotor.set(0.7);
+                  turn.disable();
+            }
+    }
     }
     
     public void setAngle(double angle) {
@@ -80,23 +110,30 @@ public class O_SwerveModule {
 class TurnEncoder implements PIDSource{
 
     Encoder encoder;
+    DigitalInput zeroSensor;
     
-    public TurnEncoder(int APort, int BPort){
+    double offset;
+    
+    
+    public TurnEncoder(int APort, int BPort, int zeroPort){
         boolean shouldReverse = false;
         if (APort == RobotMap.SM3_EncoderA || APort == RobotMap.SM2_EncoderA) {
             shouldReverse = true;
         }
        
+        zeroSensor = new DigitalInput(RobotMap.turnModule, zeroPort);
+        offset = 0;
+        
         encoder = new Encoder(2, APort, 2, BPort, shouldReverse, CounterBase.EncodingType.k4X);
-        encoder.setDistancePerPulse(500.0/410.0);
+        encoder.setDistancePerPulse(500.0/360.0);
         encoder.start();
     }
     
     public double pidGet () {
-        double angle = encoder.getDistance() % 360.0;
+        double angle = (encoder.getDistance() - offset) % 360.0;
         if (angle < 0) {
             angle = angle + 360;
         }
-        return angle - 180;
+        return (angle - 180);
     }
 }

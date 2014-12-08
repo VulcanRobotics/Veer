@@ -23,6 +23,8 @@ public class OI {
     
     public static Button L1 = new JoystickButton(joystick1, 5);
     public static Button R1 = new JoystickButton(joystick1, 6);
+    
+    public static Button A = new JoystickButton(joystick1, 1);
     // Another type of button you can create is a DigitalIOButton, which is
     // a button or switch hooked up to the cypress module. These are useful if
     // you want to build a customized operator interface.

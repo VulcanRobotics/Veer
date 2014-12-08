@@ -16,12 +16,14 @@ public class RobotMap {
             public static final int SM0_banebot = 1;
             public static final int SM0_EncoderA = 1;
             public static final int SM0_EncoderB = 2;
+            public static final int SM0_Zero = 9;
         //SM1
             public static final int SM1_CIM = 2;
             public static final int SM1_CIMile = 6;
             public static final int SM1_banebot = 2;
             public static final int SM1_EncoderA = 3;
             public static final int SM1_EncoderB = 4;
+            public static final int SM1_Zero = 10;
         //SM2
             public static final int SM2_CIM = 3;
 
@@ -29,12 +31,14 @@ public class RobotMap {
             public static final int SM2_banebot = 3;
             public static final int SM2_EncoderA = 5;
             public static final int SM2_EncoderB = 6;
+            public static final int SM2_Zero = 11;
         //SM3
             public static final int SM3_CIM = 4;
             public static final int SM3_CIMile = 8;
             public static final int SM3_banebot = 4;
             public static final int SM3_EncoderA = 7;
             public static final int SM3_EncoderB = 8;
+            public static final int SM3_Zero = 12;
             
          //Joysticks
            public static final int J1 = 1;
