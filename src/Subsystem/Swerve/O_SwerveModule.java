@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+
+
 /**
  *
  * @author 1218
@@ -31,9 +33,11 @@ public class O_SwerveModule {
         Talon turnMotor;
         TurnEncoder turnEncoder;
         PIDController turn;
-    
+    //zero
     boolean isZeroing;
-
+    
+    final double[] zeroingSpeed = {0.2, 0.24, 0.4, 0.15};
+    
     public O_SwerveModule(O_Point center, int CimPort, int CimilePort, int turnPort, int turnEncoderA, int turnEncoderB, int zeroPort, double zeroOffset){
         location = center;
         
@@ -49,10 +53,11 @@ public class O_SwerveModule {
         
         turn = new PIDController(1.0, 0.1, 0.1, turnEncoder, turnMotor, .0010);
         turn.setInputRange(-180, 180);
-        turn.setOutputRange(-.5, .5);
+        turn.setOutputRange(-.85, .85);
         turn.setContinuous();
-        
         turn.enable();
+        
+        
         
         
     }
@@ -85,13 +90,21 @@ public class O_SwerveModule {
             }
             else {
                 turn.disable();
-                turnMotor.set(0.15);
+                turnMotor.set(zeroingSpeed[turnMotor.getChannel() - 1]);
             }
         }
     }
     
     public void setAngle(double angle) {
-        turn.setSetpoint(angle);
+        if (turnMotor.getChannel() == 2 | turnMotor.getChannel() == 1)
+        {
+            turn.setSetpoint(-angle);
+        }
+        else
+        {
+            turn.setSetpoint(angle);
+        }
+        
         System.out.println("P: "+ turn.getP());
         System.out.println(turnEncoder.pidGet());
     }
@@ -103,7 +116,7 @@ public class O_SwerveModule {
 }
 
 class TurnEncoder implements PIDSource{
-
+    
     Encoder encoder;
     DigitalInput zeroSensor;
     
