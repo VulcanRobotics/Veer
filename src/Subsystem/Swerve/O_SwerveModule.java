@@ -17,25 +17,20 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-//forked version
-
 /**
  *
  * @author 1218
  */
 public class O_SwerveModule {
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-    
     O_Point location;
     O_Vector wheelVector;
-   Victor cim;
-    Victor cimile;
-    
-    Talon turnMotor;
-    TurnEncoder turnEncoder;
-    
-    PIDController turn;
+    //Drive
+        Victor cim;
+        Victor cimile;
+    //Turn
+        Talon turnMotor;
+        TurnEncoder turnEncoder;
+        PIDController turn;
     
     boolean isZeroing;
 
@@ -81,23 +76,18 @@ public class O_SwerveModule {
     }
     
     void zero() {
-       
        if (isZeroing) {
-       
-            
             if (turnEncoder.zeroSensor.get()) {
                 turnMotor.set(0);
                 turnEncoder.zero();
                 isZeroing = false;
                 turn.enable();
             }
-             else
-            {
+            else {
                 turn.disable();
-                  turnMotor.set(0.15);
-                  
+                turnMotor.set(0.15);
             }
-    }
+        }
     }
     
     public void setAngle(double angle) {
@@ -121,16 +111,13 @@ class TurnEncoder implements PIDSource{
     double zeroOffset; //how far the groove is away from "true zero" (wheels facing north)
     
     public TurnEncoder(int APort, int BPort, int zeroPort, double zeroOffset){
-        boolean shouldReverse = false;
-        if (APort == RobotMap.SM3_EncoderA || APort == RobotMap.SM2_EncoderA ) {
-            shouldReverse = true;
-        }
+        boolean shouldReverse = (APort == RobotMap.SM3_EncoderA || APort == RobotMap.SM2_EncoderA);
        
         zeroSensor = new DigitalInput(RobotMap.turnModule, zeroPort);
         offset = 0;
         this.zeroOffset = zeroOffset;
         
-        encoder = new Encoder(2, APort, 2, BPort, shouldReverse, CounterBase.EncodingType.k4X);
+        encoder = new Encoder(RobotMap.turnModule, APort, RobotMap.turnModule, BPort, shouldReverse, CounterBase.EncodingType.k4X);
         encoder.setDistancePerPulse(360.0/500.0);
         encoder.start();
     }
@@ -139,7 +126,6 @@ class TurnEncoder implements PIDSource{
         double angle = (encoder.getDistance() - offset + zeroOffset) % 360.0;
         if (angle < 0) {
             angle = angle + 360;
-            
         }
         return (angle - 180);
     }
