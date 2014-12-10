@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/Users/liamcook/Desktop/veer/src/MathObject/O_Vector.java</file>
             <file>file:/Users/liamcook/Desktop/veer/src/Subsystem/Swerve/SS_Swerve.java</file>
             <file>file:/Users/liamcook/Desktop/veer/src/Robot/RobotMain.java</file>
@@ -14,6 +15,9 @@
             <file>file:/Users/liamcook/Desktop/veer/src/Robot/CommandBase.java</file>
             <file>file:/Users/liamcook/Desktop/veer/src/Robot/C_AutonCommand.java</file>
             <file>file:/Users/liamcook/Desktop/veer/src/Subsystem/Swerve/C_Swerve.java</file>
+=======
+            <file>file:/Users/afiol-mahon/Developer/Projects/Veer/src/Subsystem/Swerve/O_SwerveModule.java</file>
+>>>>>>> 9935778a661d2fc0a27061eb99610c177f15319a
         </group>
     </open-files>
 </project-private>
