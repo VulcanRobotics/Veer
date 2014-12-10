@@ -17,26 +17,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author 1218
  */
 public class SS_Swerve extends Subsystem {
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
     
     O_SwerveModule[] modules = new O_SwerveModule[4];
-    /**
-     *
-     */
+
     public SS_Swerve() {
         modules[0] = new O_SwerveModule(new O_Point(1,1), RobotMap.SM0_CIM, RobotMap.SM0_CIMile, RobotMap.SM0_banebot, RobotMap.SM0_EncoderA, RobotMap.SM0_EncoderB, RobotMap.SM0_Zero, -90, false);
         modules[1] = new O_SwerveModule(new O_Point(-1,1), RobotMap.SM1_CIM, RobotMap.SM1_CIMile, RobotMap.SM1_banebot, RobotMap.SM1_EncoderA, RobotMap.SM1_EncoderB, RobotMap.SM1_Zero, -15, false);
         modules[2] = new O_SwerveModule(new O_Point(-1,-1), RobotMap.SM2_CIM, RobotMap.SM2_CIMile, RobotMap.SM2_banebot, RobotMap.SM2_EncoderA, RobotMap.SM2_EncoderB, RobotMap.SM2_Zero, 0, true);
         modules[3] = new O_SwerveModule(new O_Point(1,-1), RobotMap.SM3_CIM, RobotMap.SM3_CIMile, RobotMap.SM3_banebot, RobotMap.SM3_EncoderA, RobotMap.SM3_EncoderB, RobotMap.SM3_Zero, 100, true);
-        System.out.println("Swerve Modules Initialized");          
-     
+        System.out.println("Swerve Modules Initialized");
     }
     
     
     
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
         setDefaultCommand(new C_Swerve());   
     }
     
@@ -60,14 +54,12 @@ public class SS_Swerve extends Subsystem {
             if(OI.Button_A.get()) {
                 modules[k].isZeroing = true;
             }
-            
         }
         
-        
-        
         System.out.println("Max Wheel: " + maxWheelMagnitude);
+        
         //scale vectors so no wheel has to drive over 100%
-        if(maxWheelMagnitude > 1) { //otherwise Garentess tha there will be a wheel at 100% power - not good when stopped
+        if(maxWheelMagnitude > 1.0) { //otherwise Garentess tha there will be a wheel at 100% power - not good when stopped
             double scaleFactor = 1.0 / maxWheelMagnitude;
             for(int k = 0; k<4; k++) {
                 modules[k].wheelVector.setMagnitude(scaleFactor*modules[k].wheelVector.getMagnitude());    
@@ -81,7 +73,6 @@ public class SS_Swerve extends Subsystem {
         SmartDashboard.putNumber("Wheel2Angle", modules[1].wheelVector.getAngle());
         SmartDashboard.putNumber("Wheel3Angle", modules[2].wheelVector.getAngle());
         SmartDashboard.putNumber("Wheel4Angle", modules[3].wheelVector.getAngle());
-
     }
     
     //convenience method
