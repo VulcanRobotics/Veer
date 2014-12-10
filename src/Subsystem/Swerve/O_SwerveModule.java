@@ -34,7 +34,8 @@ public class O_SwerveModule {
         O_Vector wheelVector;
         
     final double[] zeroingSpeed = {0.2, 0.24, 0.4, 0.15};
-    
+    double zeroSpeedOutput = 0.3;
+    double desiredZeroSpeed = 40;
     public O_SwerveModule(O_Point center, int CimPort, int CimilePort, int turnPort, int turnEncoderA, int turnEncoderB, int zeroPort, double zeroOffset, boolean reverseEncoder){
         location = center;
         cim = new Victor(RobotMap.driveModule, CimPort);
@@ -68,13 +69,27 @@ public class O_SwerveModule {
     
     void zero() {
         if(turnEncoder.zeroSensor.get()) {
+            System.out.println("done zeroing");
             turnMotor.set(0);
             turnEncoder.zero();
             isZeroing = false;
             turn.enable();
-        } else {
+        } else { 
             turn.disable();
-            turnMotor.set(zeroingSpeed[turnMotor.getChannel() - 1]);
+            zeroSpeedOutput = zeroSpeedOutput+ 0.00005 * (desiredZeroSpeed - turnEncoder.encoder.getRate());
+            if (zeroSpeedOutput > 1.0) {
+                zeroSpeedOutput = 1.0;
+            }
+            if (zeroSpeedOutput < -1.0) {
+                zeroSpeedOutput = -1.0;
+            }
+            if(turnMotor.getChannel() == 4) {
+                System.out.println("Zero Speed: " +  zeroSpeedOutput);
+                System.out.println("Error: " + ( desiredZeroSpeed - turnEncoder.encoder.getRate()));
+            }
+        
+            
+            turnMotor.set(zeroSpeedOutput);
         }
     }
     

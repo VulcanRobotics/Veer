@@ -36,8 +36,8 @@ public class O_Vector {
     public O_Vector(O_Point p1, O_Point p2) {
         x = p2.x - p1.x;
         y = p2.y - p1.y;
-        System.out.println(x);
-        System.out.println(y);
+        //System.out.println(x);
+        //System.out.println(y);
     }
     
     public void rotate90() {

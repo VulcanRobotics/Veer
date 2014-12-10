@@ -35,7 +35,7 @@ public class SS_Swerve extends Subsystem {
     }
     
     public void swerve(O_Vector translationVector, O_Point center, double turnSpeed) {
-        System.out.println("swerving ...");
+        //System.out.println("swerving ...");
         
         double maxWheelMagnitude = 0;
         for(int k = 0; k<4; k++) {
@@ -56,7 +56,7 @@ public class SS_Swerve extends Subsystem {
             }
         }
         
-        System.out.println("Max Wheel: " + maxWheelMagnitude);
+        //System.out.println("Max Wheel: " + maxWheelMagnitude);
         
         //scale vectors so no wheel has to drive over 100%
         if(maxWheelMagnitude > 1.0) { //otherwise Garentess tha there will be a wheel at 100% power - not good when stopped
