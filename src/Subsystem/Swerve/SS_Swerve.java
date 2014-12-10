@@ -25,10 +25,10 @@ public class SS_Swerve extends Subsystem {
      *
      */
     public SS_Swerve() {
-        modules[0] = new O_SwerveModule(new O_Point(1,1), RobotMap.SM0_CIM, RobotMap.SM0_CIMile, RobotMap.SM0_banebot, RobotMap.SM0_EncoderA, RobotMap.SM0_EncoderB, RobotMap.SM0_Zero, -90);
-        modules[1] = new O_SwerveModule(new O_Point(-1,1), RobotMap.SM1_CIM, RobotMap.SM1_CIMile, RobotMap.SM1_banebot, RobotMap.SM1_EncoderA, RobotMap.SM1_EncoderB, RobotMap.SM1_Zero, -15);
-        modules[2] = new O_SwerveModule(new O_Point(-1,-1), RobotMap.SM2_CIM, RobotMap.SM2_CIMile, RobotMap.SM2_banebot, RobotMap.SM2_EncoderA, RobotMap.SM2_EncoderB, RobotMap.SM2_Zero, 0);
-        modules[3] = new O_SwerveModule(new O_Point(1,-1), RobotMap.SM3_CIM, RobotMap.SM3_CIMile, RobotMap.SM3_banebot, RobotMap.SM3_EncoderA, RobotMap.SM3_EncoderB, RobotMap.SM3_Zero, 100);
+        modules[0] = new O_SwerveModule(new O_Point(1,1), RobotMap.SM0_CIM, RobotMap.SM0_CIMile, RobotMap.SM0_banebot, RobotMap.SM0_EncoderA, RobotMap.SM0_EncoderB, RobotMap.SM0_Zero, -90, false);
+        modules[1] = new O_SwerveModule(new O_Point(-1,1), RobotMap.SM1_CIM, RobotMap.SM1_CIMile, RobotMap.SM1_banebot, RobotMap.SM1_EncoderA, RobotMap.SM1_EncoderB, RobotMap.SM1_Zero, -15, false);
+        modules[2] = new O_SwerveModule(new O_Point(-1,-1), RobotMap.SM2_CIM, RobotMap.SM2_CIMile, RobotMap.SM2_banebot, RobotMap.SM2_EncoderA, RobotMap.SM2_EncoderB, RobotMap.SM2_Zero, 0, true);
+        modules[3] = new O_SwerveModule(new O_Point(1,-1), RobotMap.SM3_CIM, RobotMap.SM3_CIMile, RobotMap.SM3_banebot, RobotMap.SM3_EncoderA, RobotMap.SM3_EncoderB, RobotMap.SM3_Zero, 100, true);
         System.out.println("Swerve Modules Initialized");          
      
     }
@@ -44,7 +44,7 @@ public class SS_Swerve extends Subsystem {
         System.out.println("swerving ...");
         
         double maxWheelMagnitude = 0;
-        for (int k = 0; k<4; k++){
+        for(int k = 0; k<4; k++) {
             O_Vector steeringVector = new O_Vector(center, modules[k].location); //initilizes as a radial vector from turning center to wheel
             steeringVector.rotate90(); // steering vector now faces in direction for rotation
             steeringVector.setMagnitude(turnSpeed);
@@ -53,12 +53,11 @@ public class SS_Swerve extends Subsystem {
             
             //check if this wheel has the highest magnitude
             double wheelMagnitude = modules[k].wheelVector.getMagnitude();
-            if (wheelMagnitude > maxWheelMagnitude) {
+            if(wheelMagnitude > maxWheelMagnitude) {
                 maxWheelMagnitude = wheelMagnitude;
             }
             
-            if (OI.A.get())
-            {
+            if(OI.Button_A.get()) {
                 modules[k].isZeroing = true;
             }
             
@@ -68,18 +67,15 @@ public class SS_Swerve extends Subsystem {
         
         System.out.println("Max Wheel: " + maxWheelMagnitude);
         //scale vectors so no wheel has to drive over 100%
-        if (maxWheelMagnitude > 1) { //otherwise Garentess tha there will be a wheel at 100% power - not good when stopped
-                 double scaleFactor = 1.0 / maxWheelMagnitude;
-             for (int k = 0; k<4; k++) {
-                 modules[k].wheelVector.setMagnitude(scaleFactor*modules[k].wheelVector.getMagnitude());
-                 
+        if(maxWheelMagnitude > 1) { //otherwise Garentess tha there will be a wheel at 100% power - not good when stopped
+            double scaleFactor = 1.0 / maxWheelMagnitude;
+            for(int k = 0; k<4; k++) {
+                modules[k].wheelVector.setMagnitude(scaleFactor*modules[k].wheelVector.getMagnitude());    
             }
         }
-        for (int k = 0; k<4; k++) {
-            
-           modules[k].update();
+        for(int k = 0; k<4; k++) {
+            modules[k].update();
         }
-        
         
         SmartDashboard.putNumber("Wheel1Angle", modules[0].wheelVector.getAngle());
         SmartDashboard.putNumber("Wheel2Angle", modules[1].wheelVector.getAngle());
