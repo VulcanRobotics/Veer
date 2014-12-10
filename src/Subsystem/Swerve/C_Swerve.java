@@ -57,7 +57,7 @@ public class C_Swerve extends CommandBase {
             swerve.swerve(new O_Vector(0, 0), new O_Point(0, 1/(OI.joystick1.getRawAxis(4) + 0.02 )), OI.joystick1.getY() * getSin(OI.joystick1.getRawAxis(4)));
         }
         
-        SmartDashboard.putNumber("WheelAngle", swerve.modules[3].turnEncoder.encoder.getRate());
+        SmartDashboard.putNumber("WheelAngle", swerve.modules[3].turnEncoder.encoder.getRaw());
         SmartDashboard.putNumber("PIDTarget", swerve.modules[3].turn.getSetpoint());
         SmartDashboard.putNumber("Power" + swerve.modules[3].turnMotor.getChannel(), swerve.modules[3].wheelVector.getMagnitude());
     }
