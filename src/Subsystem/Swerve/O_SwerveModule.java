@@ -26,7 +26,7 @@ public class O_SwerveModule {
         Victor cimile;
     //Turn
         Talon turnMotor;
-        TurnEncoder turnEncoder;
+        O_TurnEncoder turnEncoder;
         PIDController turn;
     //Data
         boolean isZeroing;
@@ -43,7 +43,7 @@ public class O_SwerveModule {
         cimile.setExpiration(0.5);
         turnMotor = new Talon(RobotMap.turnModule, turnPort);
         turnMotor.setExpiration(0.5);
-        turnEncoder = new TurnEncoder(turnEncoderA, turnEncoderB, zeroPort, zeroOffset, reverseEncoder);
+        turnEncoder = new O_TurnEncoder(turnEncoderA, turnEncoderB, zeroPort, zeroOffset, reverseEncoder);
        
         isZeroing = false;
         
@@ -94,35 +94,3 @@ public class O_SwerveModule {
     }
 }
 
-class TurnEncoder implements PIDSource{
-    
-    Encoder encoder;
-    DigitalInput zeroSensor;
-    
-    double offset; // how far the module has to be adjusted to make the dash zero
-    double zeroOffset; //how far the groove is away from "true zero" (wheels facing north)
-    
-    public TurnEncoder(int APort, int BPort, int zeroPort, double zeroOffset, boolean reverseEncoder){       
-        zeroSensor = new DigitalInput(RobotMap.turnModule, zeroPort);
-        offset = 0;
-        this.zeroOffset = zeroOffset;
-        encoder = new Encoder(RobotMap.turnModule, APort, RobotMap.turnModule, BPort, reverseEncoder, CounterBase.EncodingType.k4X) {{
-            setDistancePerPulse(360.0 / 500.0);
-            start();
-        }};
-    }
-    
-    /**
-     * 
-     * @return Wheel angle
-     */
-    public double pidGet() {
-        double angle = (encoder.getDistance() - offset + zeroOffset) % 360.0;
-        angle += (angle < 0) ? 360: 0; //Add 360 if less than 0
-        return (angle - 180);
-    }
-    
-    public void zero() {
-        offset = encoder.getDistance();
-    }
-}
