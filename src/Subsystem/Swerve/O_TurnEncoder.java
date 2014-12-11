@@ -17,7 +17,7 @@ class O_TurnEncoder implements PIDSource{
         zeroSensor = new DigitalInput(RobotMap.turnModule, zeroPort);
         this.zeroOffset = zeroOffset;
         encoder = new Encoder(RobotMap.turnModule, APort, RobotMap.turnModule, BPort, reverseEncoder, CounterBase.EncodingType.k4X) {{
-            //setDistancePerPulse(360.0 / 500.0);
+            setDistancePerPulse(360.0 / 500.0);
             start();
         }};
     }
@@ -39,4 +39,6 @@ class O_TurnEncoder implements PIDSource{
     public double getDistance() {
         return 360.0*(encoder.getRaw()/1695.0);
     }
+    
+    
 }

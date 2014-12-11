@@ -30,7 +30,7 @@ public class O_SwerveModule {
         O_Vector wheelVector;
         
     final double[] zeroingSpeed = {0.2, 0.24, 0.4, 0.15};
-    double zeroSpeedOutput = 0.3;
+    double zeroSpeedOutput = 0.2;
     double desiredZeroSpeed = 40;
     public O_SwerveModule(O_Point center, int CimPort, int CimilePort, int turnPort, int turnEncoderA, int turnEncoderB, int zeroPort, double zeroOffset, boolean reverseEncoder){
         location = center;
@@ -65,19 +65,22 @@ public class O_SwerveModule {
     
     void zero() {        
         if(turnEncoder.zeroSensor.get()) {
+                //zero mark reached
             System.out.println("done zeroing");
             turnMotor.set(0);
             turnEncoder.zero();
             isZeroing = false;
             turn.enable();
         } else { 
+                //zero mark not reached
             turn.disable();
             //whats the significance of 0.00005 represent? -AFM
-            zeroSpeedOutput = zeroSpeedOutput + 0.00005 * (desiredZeroSpeed - turnEncoder.encoder.getRate());
+            //equivalent of Kp on a pid - constant that controls how reactive the system is
+            zeroSpeedOutput = zeroSpeedOutput + 0.00 * (desiredZeroSpeed - turnEncoder.encoder.getRate()) * (turnEncoder.encoder.getDirection() ? 1.0 : -1.0);
             if(zeroSpeedOutput > 1.0) {
                 zeroSpeedOutput = 1.0;
-            }else if(zeroSpeedOutput < -1.0) {
-                zeroSpeedOutput = -1.0;
+            }else if(zeroSpeedOutput < 0.0) {
+                zeroSpeedOutput = 0.0;
             }
             turnMotor.set(zeroSpeedOutput);
         }
