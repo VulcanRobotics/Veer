@@ -11,9 +11,7 @@ import Robot.OI;
 import Robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 /**
- *
  * @author 1218
  */
 public class SS_Swerve extends Subsystem {
@@ -34,45 +32,34 @@ public class SS_Swerve extends Subsystem {
         setDefaultCommand(new C_Swerve());   
     }
     
-    public void swerve(O_Vector translationVector, O_Point center, double turnSpeed) {
-        //System.out.println("swerving ...");
-        
+    public void swerve(O_Vector translationVector, O_Point center, double turnSpeed) {        
         double maxWheelMagnitude = 0;
+        
         for(int k = 0; k<4; k++) {
             O_Vector steeringVector = new O_Vector(center, modules[k].location); //initilizes as a radial vector from turning center to wheel
-            steeringVector.rotate90(); // steering vector now faces in direction for rotation
+            steeringVector.rotate90(); //steering vector now faces in direction for rotation
             steeringVector.setMagnitude(turnSpeed);
             
-            modules[k].wheelVector = translationVector.add(steeringVector); // add the translation and rotation vectors to get the required wheel vector
+            modules[k].wheelVector = translationVector.add(steeringVector); //sum is required wheel vector
             
             //check if this wheel has the highest magnitude
-            double wheelMagnitude = modules[k].wheelVector.getMagnitude();
-            if(wheelMagnitude > maxWheelMagnitude) {
-                maxWheelMagnitude = wheelMagnitude;
+            if(modules[k].wheelVector.getMagnitude() > maxWheelMagnitude) {
+                maxWheelMagnitude = modules[k].wheelVector.getMagnitude();
             }
             
-            if(OI.Button_A.get()) {
-                modules[k].isZeroing = true;
-            }
+            modules[k].isZeroing = OI.Button_A.get();
         }
-        
-        //System.out.println("Max Wheel: " + maxWheelMagnitude);
         
         //scale vectors so no wheel has to drive over 100%
         if(maxWheelMagnitude > 1.0) { //otherwise Garentess tha there will be a wheel at 100% power - not good when stopped
             double scaleFactor = 1.0 / maxWheelMagnitude;
             for(int k = 0; k<4; k++) {
-                modules[k].wheelVector.setMagnitude(scaleFactor*modules[k].wheelVector.getMagnitude());    
+                modules[k].wheelVector.setMagnitude(scaleFactor * modules[k].wheelVector.getMagnitude());    
             }
         }
         for(int k = 0; k<4; k++) {
             modules[k].update();
         }
-        
-        SmartDashboard.putNumber("Wheel1Angle", modules[0].wheelVector.getAngle());
-        SmartDashboard.putNumber("Wheel2Angle", modules[1].wheelVector.getAngle());
-        SmartDashboard.putNumber("Wheel3Angle", modules[2].wheelVector.getAngle());
-        SmartDashboard.putNumber("Wheel4Angle", modules[3].wheelVector.getAngle());
     }
     
     //convenience method
@@ -80,5 +67,20 @@ public class SS_Swerve extends Subsystem {
         O_Vector translationVector = new O_Vector();
         translationVector = translationVector.polarVector(heading, power);
         swerve(translationVector, center, turnSpeed);
+    }
+    
+    /**
+     * Publishes all Swerve System Values to the dashboard.
+     */
+    public void syncDashboard() {
+        SmartDashboard.putNumber("Wheel1Angle", modules[0].wheelVector.getAngle());
+        SmartDashboard.putNumber("Wheel2Angle", modules[1].wheelVector.getAngle());
+        SmartDashboard.putNumber("Wheel3Angle", modules[2].wheelVector.getAngle());
+        SmartDashboard.putNumber("Wheel4Angle", modules[3].wheelVector.getAngle());
+        SmartDashboard.putNumber("WheelAngle", modules[3].turnEncoder.encoder.getRaw());
+        SmartDashboard.putNumber("PIDTarget", modules[3].turn.getSetpoint());
+        SmartDashboard.putNumber("Power" + modules[3].turnMotor.getChannel(), modules[3].wheelVector.getMagnitude());
+        System.out.println("Zero Speed: " +  modules[3].zeroSpeedOutput);
+        System.out.println("Error: " + ( modules[3].desiredZeroSpeed - modules[3].turnEncoder.encoder.getRate()));  
     }
 }

@@ -4,12 +4,6 @@ import MathObject.O_Point;
 import Robot.CommandBase;
 import MathObject.O_Vector;
 import Robot.OI;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author 1218
@@ -54,22 +48,9 @@ public class C_Swerve extends CommandBase {
         } else {
             //snake mode
             System.out.println("snake mode");
-            swerve.swerve(new O_Vector(0, 0), new O_Point(0, 1/(OI.joystick1.getRawAxis(4) + 0.02 )), OI.joystick1.getY() * getSin(OI.joystick1.getRawAxis(4)));
+            swerve.swerve(new O_Vector(0, 0), new O_Point(0, 1/(OI.joystick1.getRawAxis(4) + 0.02 )), OI.joystick1.getY() * ((OI.joystick1.getRawAxis(4) >= 0) ? 1 : -1));
         }
-        
-        SmartDashboard.putNumber("WheelAngle", swerve.modules[3].turnEncoder.encoder.getRaw());
-        SmartDashboard.putNumber("PIDTarget", swerve.modules[3].turn.getSetpoint());
-        SmartDashboard.putNumber("Power" + swerve.modules[3].turnMotor.getChannel(), swerve.modules[3].wheelVector.getMagnitude());
-    }
-
-    
-    float getSin(double value) {
-        if (value >= 0) {
-            return 1;
-        }
-        else {
-            return -1;
-        }
+        swerve.syncDashboard();
     }
     
     protected boolean isFinished() {

@@ -8,11 +8,7 @@ package Subsystem.Swerve;
 import MathObject.O_Vector;
 import MathObject.O_Point;
 import Robot.RobotMap;
-import edu.wpi.first.wpilibj.CounterBase;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -67,7 +63,7 @@ public class O_SwerveModule {
         }
     }
     
-    void zero() {
+    void zero() {        
         if(turnEncoder.zeroSensor.get()) {
             System.out.println("done zeroing");
             turnMotor.set(0);
@@ -76,19 +72,13 @@ public class O_SwerveModule {
             turn.enable();
         } else { 
             turn.disable();
-            zeroSpeedOutput = zeroSpeedOutput+ 0.00005 * (desiredZeroSpeed - turnEncoder.encoder.getRate());
-            if (zeroSpeedOutput > 1.0) {
+            //whats the significance of 0.00005 represent? -AFM
+            zeroSpeedOutput = zeroSpeedOutput + 0.00005 * (desiredZeroSpeed - turnEncoder.encoder.getRate());
+            if(zeroSpeedOutput > 1.0) {
                 zeroSpeedOutput = 1.0;
-            }
-            if (zeroSpeedOutput < -1.0) {
+            }else if(zeroSpeedOutput < -1.0) {
                 zeroSpeedOutput = -1.0;
             }
-            if(turnMotor.getChannel() == 4) {
-                System.out.println("Zero Speed: " +  zeroSpeedOutput);
-                System.out.println("Error: " + ( desiredZeroSpeed - turnEncoder.encoder.getRate()));
-            }
-        
-            
             turnMotor.set(zeroSpeedOutput);
         }
     }
