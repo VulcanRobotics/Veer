@@ -30,7 +30,7 @@ public class O_SwerveModule {
         O_Vector wheelVector;
         
     final double[] zeroingSpeed = {0.2, 0.24, 0.4, 0.15};
-    double zeroSpeedOutput = 0.2;
+    double zeroSpeedOutput = 0.20;
     double desiredZeroSpeed = 40;
     public O_SwerveModule(O_Point center, int CimPort, int CimilePort, int turnPort, int turnEncoderA, int turnEncoderB, int zeroPort, double zeroOffset, boolean reverseEncoder){
         location = center;
