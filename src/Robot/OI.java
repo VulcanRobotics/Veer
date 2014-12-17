@@ -14,17 +14,24 @@ public class OI {
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
     // number it is.
-    // Joystick stick = new Joystick(port);
-    public static Joystick joystick1 = new Joystick(RobotMap.J1);
-    public static Joystick joystick2 = new Joystick(RobotMap.J2);
-    // Button button = new JoystickButton(stick, buttonNumber);
+    public static Joystick joystick1;
+    public static Joystick joystick2;
+    public static Button leftThumbClick;
+    public static Button Button_L1;
+    public static Button Button_R1;
+    public static Button Button_A;
     
-    public static Button leftThumbClick = new JoystickButton(joystick1, 9);
+    public OI() {
+        joystick1 = new Joystick(RobotMap.J1);
+        joystick2 = new Joystick(RobotMap.J2);
+        
+        leftThumbClick = new JoystickButton(joystick1, 9);
+        Button_L1 = new JoystickButton(joystick1, 5);
+        Button_R1 = new JoystickButton(joystick1, 6);
+        Button_A = new JoystickButton(joystick1, 1);
+        Button_A.whenPressed(new Subsystem.Swerve.C_ZeroModules());
+    }
     
-    public static Button Button_L1 = new JoystickButton(joystick1, 5);
-    public static Button Button_R1 = new JoystickButton(joystick1, 6);
-    
-    public static Button Button_A = new JoystickButton(joystick1, 1);
     // Another type of button you can create is a DigitalIOButton, which is
     // a button or switch hooked up to the cypress module. These are useful if
     // you want to build a customized operator interface.

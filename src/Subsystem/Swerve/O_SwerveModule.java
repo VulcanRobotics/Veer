@@ -25,7 +25,6 @@ public class O_SwerveModule {
         O_TurnEncoder turnEncoder;
         PIDController turn;
     //Data
-        boolean isZeroing;
         O_Point location;
         O_Vector wheelVector;
         
@@ -41,9 +40,6 @@ public class O_SwerveModule {
         turnMotor = new Talon(RobotMap.turnModule, turnPort);
         turnMotor.setExpiration(0.5);
         turnEncoder = new O_TurnEncoder(turnEncoderA, turnEncoderB, zeroPort, zeroOffset, reverseEncoder);
-       
-        isZeroing = false;
-        
         turn = new PIDController(1.0, 0.1, 0.1, turnEncoder, turnMotor, .0010) {{
             setInputRange(-180, 180);
             setOutputRange(-.85, .85);
@@ -58,28 +54,22 @@ public class O_SwerveModule {
         turn.setPID(SmartDashboard.getNumber("TurningP", 0.01),
                     SmartDashboard.getNumber("TurningI", 0.0),
                     SmartDashboard.getNumber("TurningD", 0.0));
-        if(isZeroing) {
-            zero();
-        }
     }
     
     void zero() {        
         if(turnEncoder.zeroSensor.get()) {
-                //zero mark reached
+            //zero mark reached
             System.out.println("done zeroing");
             turnMotor.set(0);
             turnEncoder.zero();
-            isZeroing = false;
             turn.enable();
         } else { 
-                //zero mark not reached
+            //zero mark not reached
             turn.disable();
-            //whats the significance of 0.00005 represent? -AFM
-            //equivalent of Kp on a pid - constant that controls how reactive the system is
             zeroSpeedOutput = zeroSpeedOutput + 0.00 * (desiredZeroSpeed - turnEncoder.encoder.getRate()) * (turnEncoder.encoder.getDirection() ? 1.0 : -1.0);
             if(zeroSpeedOutput > 1.0) {
                 zeroSpeedOutput = 1.0;
-            }else if(zeroSpeedOutput < 0.0) {
+            } else if(zeroSpeedOutput < 0.0) {
                 zeroSpeedOutput = 0.0;
             }
             turnMotor.set(zeroSpeedOutput);

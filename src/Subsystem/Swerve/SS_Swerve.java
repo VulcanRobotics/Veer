@@ -7,7 +7,6 @@ package Subsystem.Swerve;
  */
 import MathObject.O_Vector;
 import MathObject.O_Point;
-import Robot.OI;
 import Robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -45,14 +44,6 @@ public class SS_Swerve extends Subsystem {
             //check if this wheel has the highest magnitude
             if(modules[k].wheelVector.getMagnitude() > maxWheelMagnitude) {
                 maxWheelMagnitude = modules[k].wheelVector.getMagnitude();
-            }
-            
-           // modules[k].isZeroing = OI.Button_A.get();
-            //the isZeroing vairable should only be assigned to when its is pressed
-            //iszeroing is automatically set to false by zeroing code when done zeroing
-            //this stops zeroing whenever button is pressed
-            if (OI.Button_A.get()) {
-                modules[k].isZeroing = true;
             }
         }
         
