@@ -47,4 +47,7 @@ public class RobotMap {
         //Compressor
            public static final int Compressor_Relay = 1;
            public static final int Compressor_Switch = 14;
+           
+        //Drivetrain senors
+           public static final int Compass = 1;
 }

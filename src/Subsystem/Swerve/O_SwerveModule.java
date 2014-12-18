@@ -31,6 +31,9 @@ public class O_SwerveModule {
     final double[] zeroingSpeed = {0.2, 0.24, 0.4, 0.15};
     double zeroSpeedOutput = 0.20;
     double desiredZeroSpeed = 40;
+    
+    boolean isZeroing = false;
+    
     public O_SwerveModule(O_Point center, int CimPort, int CimilePort, int turnPort, int turnEncoderA, int turnEncoderB, int zeroPort, double zeroOffset, boolean reverseEncoder){
         location = center;
         cim = new Victor(RobotMap.driveModule, CimPort);
@@ -54,6 +57,9 @@ public class O_SwerveModule {
         turn.setPID(SmartDashboard.getNumber("TurningP", 0.01),
                     SmartDashboard.getNumber("TurningI", 0.0),
                     SmartDashboard.getNumber("TurningD", 0.0));
+        if (isZeroing) {
+            zero();
+        }
     }
     
     void zero() {        
@@ -63,6 +69,7 @@ public class O_SwerveModule {
             turnMotor.set(0);
             turnEncoder.zero();
             turn.enable();
+            isZeroing = false;
         } else { 
             //zero mark not reached
             turn.disable();
@@ -73,6 +80,7 @@ public class O_SwerveModule {
                 zeroSpeedOutput = 0.0;
             }
             turnMotor.set(zeroSpeedOutput);
+            isZeroing = true;
         }
     }
     
@@ -82,8 +90,8 @@ public class O_SwerveModule {
         } else {
             turn.setSetpoint(angle);
         }
-        System.out.println("P: "+ turn.getP());
-        System.out.println("Current Angle" + turnEncoder.pidGet());
+        //System.out.println("P: "+ turn.getP());
+        //System.out.println("Current Angle" + turnEncoder.pidGet());
     }
     
     public void setPower(double power) {

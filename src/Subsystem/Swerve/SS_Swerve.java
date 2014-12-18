@@ -7,7 +7,9 @@ package Subsystem.Swerve;
  */
 import MathObject.O_Vector;
 import MathObject.O_Point;
+import Robot.OI;
 import Robot.RobotMap;
+import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
@@ -17,10 +19,12 @@ public class SS_Swerve extends Subsystem {
     
     O_SwerveModule[] modules = new O_SwerveModule[4];
 
+    AnalogChannel compass = new AnalogChannel(RobotMap.Compass);
+    
     public SS_Swerve() {
         modules[0] = new O_SwerveModule(new O_Point(1,1), RobotMap.SM0_CIM, RobotMap.SM0_CIMile, RobotMap.SM0_banebot, RobotMap.SM0_EncoderA, RobotMap.SM0_EncoderB, RobotMap.SM0_Zero, 35, false);
         modules[1] = new O_SwerveModule(new O_Point(-1,1), RobotMap.SM1_CIM, RobotMap.SM1_CIMile, RobotMap.SM1_banebot, RobotMap.SM1_EncoderA, RobotMap.SM1_EncoderB, RobotMap.SM1_Zero, -35, false);
-        modules[2] = new O_SwerveModule(new O_Point(-1,-1), RobotMap.SM2_CIM, RobotMap.SM2_CIMile, RobotMap.SM2_banebot, RobotMap.SM2_EncoderA, RobotMap.SM2_EncoderB, RobotMap.SM2_Zero, 170, true);
+        modules[2] = new O_SwerveModule(new O_Point(-1,-1), RobotMap.SM2_CIM, RobotMap.SM2_CIMile, RobotMap.SM2_banebot, RobotMap.SM2_EncoderA, RobotMap.SM2_EncoderB, RobotMap.SM2_Zero, -170, true);
         modules[3] = new O_SwerveModule(new O_Point(1,-1), RobotMap.SM3_CIM, RobotMap.SM3_CIMile, RobotMap.SM3_banebot, RobotMap.SM3_EncoderA, RobotMap.SM3_EncoderB, RobotMap.SM3_Zero, 100, true);
         System.out.println("Swerve Modules Initialized");
     }
@@ -45,6 +49,10 @@ public class SS_Swerve extends Subsystem {
             if(modules[k].wheelVector.getMagnitude() > maxWheelMagnitude) {
                 maxWheelMagnitude = modules[k].wheelVector.getMagnitude();
             }
+            if (OI.Button_A.get())
+            {
+            modules[k].isZeroing = true;
+            }
         }
         
         //scale vectors so no wheel has to drive over 100%
@@ -57,6 +65,8 @@ public class SS_Swerve extends Subsystem {
         for(int k = 0; k<4; k++) {
             modules[k].update();
         }
+        
+        
     }
     
     //convenience method
@@ -77,8 +87,18 @@ public class SS_Swerve extends Subsystem {
         SmartDashboard.putNumber("WheelAngle", modules[3].turnEncoder.encoder.getRaw());
         SmartDashboard.putNumber("PIDTarget", modules[3].turn.getSetpoint());
         SmartDashboard.putNumber("Power" + modules[3].turnMotor.getChannel(), modules[3].wheelVector.getMagnitude());
-        System.out.println("Zero Speed: " +  modules[3].zeroSpeedOutput);
-        System.out.println("Error: " + ( modules[3].desiredZeroSpeed - modules[3].turnEncoder.encoder.getRate()) * (modules[3].turnEncoder.encoder.getDirection() ? 1.0 : -1.0));  
-        System.out.println("photogate: " + modules[1].turnEncoder.zeroSensor.get());
+        //System.out.println("Zero Speed: " +  modules[3].zeroSpeedOutput);
+        //System.out.println("Error: " + ( modules[3].desiredZeroSpeed - modules[3].turnEncoder.encoder.getRate()) * (modules[3].turnEncoder.encoder.getDirection() ? 1.0 : -1.0));  
+        //System.out.println("photogate: " + modules[1].turnEncoder.zeroSensor.get());
+        //System.out.println("Compass: " + (compass.getAverageVoltage() * 72.0 - 180));
+        System.out.println("");
+        System.out.print("0: ");
+        System.out.print(modules[0].turnEncoder.encoder.getRaw());
+        System.out.print(", 1: ");
+        System.out.print(modules[1].turnEncoder.encoder.getRaw());
+        System.out.print(", 2: ");
+        System.out.print(modules[2].turnEncoder.encoder.getRaw());
+        System.out.print(", 3: ");
+        System.out.print(modules[3].turnEncoder.encoder.getRaw());
     }
 }

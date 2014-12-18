@@ -45,7 +45,7 @@ public class C_Swerve extends CommandBase {
                 shouldRunTwist = false;
             }
             if(shouldRunTwist) {
-                System.out.println("swerve twisting");
+                //System.out.println("swerve twisting");
                 swerve.swerve(new O_Vector(-OI.joystick1.getY(), OI.joystick1.getX()), new O_Point(0.0,0.0), -1 * rightX);
             }
         } else {
