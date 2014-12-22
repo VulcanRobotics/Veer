@@ -8,7 +8,6 @@ package Subsystem.Swerve;
 import MathObject.O_Point;
 import MathObject.O_Vector;
 import Robot.CommandBase;
-import static Robot.CommandBase;
 import Robot.OI;
 
 /**

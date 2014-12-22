@@ -7,7 +7,7 @@ package Subsystem.Swerve;
  */
 import MathObject.O_Vector;
 import MathObject.O_Point;
-import static Robot.CommandBase.swerve;
+import Robot.CommandBase;
 import Robot.OI;
 import Robot.RobotMap;
 import edu.wpi.first.wpilibj.AnalogChannel;
@@ -70,25 +70,9 @@ public class SS_Swerve extends Subsystem {
             modules[k].update();
         }
         
-        swerve.syncDashboard();
+        syncDashboard();
     }
     
-    //convenience method
-    public void swerve(int heading, double power, O_Point center, double turnSpeed) {
-        int robotCentricHeading = heading - (int)(gyro.getAngle() % 360);
-        if (robotCentricHeading > 180){
-            robotCentricHeading = robotCentricHeading -360; 
-        }
-        if (robotCentricHeading < -180){
-            robotCentricHeading = robotCentricHeading +360; 
-        }
-        System.out.println("heading: " + heading);
-        System.out.println("gyro: " + (gyro.getAngle() % 360));
-        System.out.println("robo centric: " + robotCentricHeading);
-        O_Vector translationVector = new O_Vector();
-        translationVector = translationVector.polarVector(robotCentricHeading, power);
-        swerve(translationVector, center, turnSpeed);
-    }
     
     /**
      * Publishes all Swerve System Values to the dashboard.
