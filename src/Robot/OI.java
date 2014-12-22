@@ -1,6 +1,7 @@
 
 package Robot;
 
+import com.sun.squawk.util.MathUtils;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -16,20 +17,66 @@ public class OI {
     // number it is.
     public static Joystick joystick1;
     public static Joystick joystick2;
-    public static Button leftThumbClick;
+    
+    public static Button leftThumb;
+    public static Button rightThumb;
     public static Button Button_L1;
     public static Button Button_R1;
     public static Button Button_A;
+    public static Button Button_B;
+    public static Button Button_X;
+    public static Button Button_Y;
+    public static leftBumper Button_L2;
+    public static rightBumper Button_R2;
     
     public OI() {
         joystick1 = new Joystick(RobotMap.J1);
         joystick2 = new Joystick(RobotMap.J2);
         
-        leftThumbClick = new JoystickButton(joystick1, 9);
+        leftThumb = new JoystickButton(joystick1, 9);
+        rightThumb = new JoystickButton(joystick1, 10);
         Button_L1 = new JoystickButton(joystick1, 5);
         Button_R1 = new JoystickButton(joystick1, 6);
+        Button_L2 = new leftBumper(joystick1, 3);
+        Button_R2 = new rightBumper(joystick1, 3);
+        
         Button_A = new JoystickButton(joystick1, 1);
+        Button_B = new JoystickButton(joystick1, 2);
+        Button_X = new JoystickButton(joystick1, 3);
+        Button_Y = new JoystickButton(joystick1, 4);
         //Button_A.whenPressed(new Subsystem.Swerve.C_ZeroModules());
+    }
+    
+    public double leftX() {
+        return joystick1.getRawAxis(1);
+    }
+    
+    public double leftY() {
+        return -joystick1.getRawAxis(1);
+    }
+    
+    public int leftAngle() {
+        return (int)Math.toDegrees( MathUtils.atan2(leftY(), leftX()));
+    }
+    
+    public double leftMagnitude() {
+        return Math.sqrt(leftX() * leftX() + leftY() * leftY());
+    }
+    
+    public double rightX() {
+        return joystick1.getRawAxis(4);
+    }
+    
+    public double rightY() {
+        return -joystick1.getRawAxis(5);
+    }
+    
+    public int rightAngle() {
+        return (int)Math.toDegrees( MathUtils.atan2(rightY(), rightX()));
+    }
+    
+    public double rightMagnitude() {
+        return Math.sqrt(rightX() * rightX() + rightY() * rightY());
     }
     
     // Another type of button you can create is a DigitalIOButton, which is

@@ -23,7 +23,7 @@ public class C_Swerve extends CommandBase {
         double trigger = OI.joystick1.getRawAxis(3);
         double rightX = OI.joystick1.getRawAxis(4);
         
-        if(!OI.leftThumbClick.get()) {
+        if(!OI.leftThumb.get()) {
             boolean shouldRunTwist = true;
             if(trigger > 0.4) { //back left button, front left wheel
                 System.out.println("turning of front left wheel");
