@@ -58,35 +58,35 @@ public class OI {
         Button_B.whenPressed(new Subsystem.Swerve.C_ResetGyro());
     }
     
-    public double leftX() {
+    public static double leftX() {
         return joystick1.getRawAxis(1);
     }
     
-    public double leftY() {
+    public static double leftY() {
         return -joystick1.getRawAxis(1);
     }
     
-    public int leftAngle() {
+    public static int leftAngle() {
         return (int)Math.toDegrees( MathUtils.atan2(leftY(), leftX()));
     }
     
-    public double leftMagnitude() {
+    public static double leftMagnitude() {
         return Math.sqrt(leftX() * leftX() + leftY() * leftY());
     }
     
-    public double rightX() {
+    public static double rightX() {
         return joystick1.getRawAxis(4);
     }
     
-    public double rightY() {
+    public static double rightY() {
         return -joystick1.getRawAxis(5);
     }
     
-    public int rightAngle() {
+    public static int rightAngle() {
         return (int)Math.toDegrees( MathUtils.atan2(rightY(), rightX()));
     }
     
-    public double rightMagnitude() {
+    public static double rightMagnitude() {
         return Math.sqrt(rightX() * rightX() + rightY() * rightY());
     }
     

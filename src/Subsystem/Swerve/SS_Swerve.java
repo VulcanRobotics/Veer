@@ -35,7 +35,7 @@ public class SS_Swerve extends Subsystem {
     
     
     public void initDefaultCommand() {
-        setDefaultCommand(new C_Swerve());   
+        setDefaultCommand(new C_Twist());   
     }
     
     public void swerve(O_Vector translationVector, O_Point center, double turnSpeed) {        

@@ -5,7 +5,10 @@
  */
 package Subsystem.Swerve;
 
+import MathObject.O_Point;
+import MathObject.O_Vector;
 import Robot.CommandBase;
+import Robot.OI;
 
 /**
  *
@@ -26,6 +29,20 @@ public class C_Twist extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         System.out.println("twist");
+        int heading = OI.leftAngle();
+        int robotCentricHeading = heading - (int)(swerve.gyro.getAngle() % 360);
+        if (robotCentricHeading > 180){
+            robotCentricHeading = robotCentricHeading -360; 
+        }
+        if (robotCentricHeading < -180){
+            robotCentricHeading = robotCentricHeading +360; 
+        }
+        System.out.println("heading: " + heading);
+        System.out.println("gyro: " + (swerve.gyro.getAngle() % 360));
+        System.out.println("robo centric: " + robotCentricHeading);
+        O_Vector translationVector = new O_Vector();
+        translationVector = translationVector.polarVector(robotCentricHeading, OI.leftMagnitude());
+        swerve.swerve(translationVector, new O_Point(0, 0), OI.rightX());
     }
 
     // Make this return true when this Command no longer needs to run execute()
