@@ -7,6 +7,7 @@ package Subsystem.Swerve;
  */
 import MathObject.O_Vector;
 import MathObject.O_Point;
+import static Robot.CommandBase.swerve;
 import Robot.OI;
 import Robot.RobotMap;
 import edu.wpi.first.wpilibj.AnalogChannel;
@@ -69,7 +70,7 @@ public class SS_Swerve extends Subsystem {
             modules[k].update();
         }
         
-        
+        swerve.syncDashboard();
     }
     
     //convenience method

@@ -42,7 +42,10 @@ public class C_Twist extends CommandBase {
         System.out.println("robo centric: " + robotCentricHeading);
         O_Vector translationVector = new O_Vector();
         translationVector = translationVector.polarVector(robotCentricHeading, OI.leftMagnitude());
-        swerve.swerve(translationVector, new O_Point(0, 0), OI.rightX());
+        swerve.swerve(translationVector, new O_Point(0, 0), -OI.rightX());
+        System.out.println("leftx: " + OI.leftX());
+        System.out.println("lefty: " + OI.leftY());
+        System.out.println("left angle: " + OI.leftAngle());
     }
 
     // Make this return true when this Command no longer needs to run execute()

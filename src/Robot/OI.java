@@ -58,12 +58,12 @@ public class OI {
         Button_B.whenPressed(new Subsystem.Swerve.C_ResetGyro());
     }
     
-    public static double leftX() {
+    public static double leftY() {
         return joystick1.getRawAxis(1);
     }
     
-    public static double leftY() {
-        return -joystick1.getRawAxis(1);
+    public static double leftX() {
+        return -joystick1.getRawAxis(2);
     }
     
     public static int leftAngle() {

@@ -5,7 +5,11 @@
  */
 package Subsystem.Swerve;
 
+import MathObject.O_Point;
+import MathObject.O_Vector;
 import Robot.CommandBase;
+import static Robot.CommandBase;
+import Robot.OI;
 
 /**
  *
@@ -22,10 +26,12 @@ public class C_Snake extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
         System.out.println("snaking");
+        
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        swerve.swerve(new O_Vector(0.0, 0.0), new O_Point(0.0, 1.0/(OI.rightX() + 0.02 )), OI.joystick1.getY() * ((OI.rightX() >= 0) ? 1.0 : -1.0));
     }
 
     // Make this return true when this Command no longer needs to run execute()
