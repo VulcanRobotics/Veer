@@ -34,6 +34,8 @@ public class O_SwerveModule {
     
     boolean isZeroing = false;
     
+    final int maxTurnDegrees  = 160;
+    
     public O_SwerveModule(O_Point center, int CimPort, int CimilePort, int turnPort, int turnEncoderA, int turnEncoderB, int zeroPort, double zeroOffset, boolean reverseEncoder){
         location = center;
         cim = new Victor(RobotMap.driveModule, CimPort);
@@ -85,11 +87,14 @@ public class O_SwerveModule {
     }
     
     public void setAngle(double angle) {
-        if(turnMotor.getChannel() == 2 | turnMotor.getChannel() == 1) {
-            turn.setSetpoint(-angle);
-        } else {
-            turn.setSetpoint(angle);
+        if (wheelVector.getMagnitude() > 0.1) {
+            if(turnMotor.getChannel() == 2 | turnMotor.getChannel() == 1) {
+                turn.setSetpoint(-angle);
+            } else {
+                turn.setSetpoint(angle);
+            }
         }
+        
         //System.out.println("P: "+ turn.getP());
         //System.out.println("Current Angle" + turnEncoder.pidGet());
     }

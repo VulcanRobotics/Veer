@@ -37,7 +37,7 @@ class O_TurnEncoder implements PIDSource{
     }
     
     public double getDistance() {
-        return 360.0*(encoder.getRaw()/1695.0);
+        return 360.0*(encoder.getRaw()/1750.0);
     }
     
     

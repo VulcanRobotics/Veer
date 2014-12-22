@@ -49,5 +49,5 @@ public class RobotMap {
            public static final int Compressor_Switch = 14;
            
         //Drivetrain senors
-           public static final int Compass = 1;
+           public static final int Gyro = 1;
 }

@@ -27,4 +27,12 @@ public class O_Angle {
     public int get() {
         return angle;
     }
+    
+    /*
+    public int differenceWith(O_Angle angle) {
+        int difference = 0;
+        if ((this.angle - angle.angle) > 180) {
+            
+        } 
+    }*/
 }

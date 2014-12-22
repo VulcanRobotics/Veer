@@ -28,8 +28,8 @@ public class O_Vector {
     }
     
     public O_Vector polarVector(int heading, double power) {
-        y = Math.sin(heading) * power;
-        x = Math.cos(heading) * power;
+        y = Math.sin(Math.toRadians(heading)) * power;
+        x = Math.cos(Math.toRadians(heading)) * power;
         return this;
     }
     

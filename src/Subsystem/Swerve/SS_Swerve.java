@@ -10,6 +10,7 @@ import MathObject.O_Point;
 import Robot.OI;
 import Robot.RobotMap;
 import edu.wpi.first.wpilibj.AnalogChannel;
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
@@ -19,8 +20,7 @@ public class SS_Swerve extends Subsystem {
     
     O_SwerveModule[] modules = new O_SwerveModule[4];
 
-    AnalogChannel compass = new AnalogChannel(RobotMap.Compass);
-    
+    Gyro gyro = new Gyro(RobotMap.Gyro); 
     public SS_Swerve() {
         modules[0] = new O_SwerveModule(new O_Point(1,1), RobotMap.SM0_CIM, RobotMap.SM0_CIMile, RobotMap.SM0_banebot, RobotMap.SM0_EncoderA, RobotMap.SM0_EncoderB, RobotMap.SM0_Zero, 35, false);
         modules[1] = new O_SwerveModule(new O_Point(-1,1), RobotMap.SM1_CIM, RobotMap.SM1_CIMile, RobotMap.SM1_banebot, RobotMap.SM1_EncoderA, RobotMap.SM1_EncoderB, RobotMap.SM1_Zero, -35, false);
@@ -51,7 +51,9 @@ public class SS_Swerve extends Subsystem {
             }
             if (OI.Button_A.get())
             {
-            modules[k].isZeroing = true;
+                modules[k].isZeroing = true;
+                gyro.setSensitivity(.00738888);
+                gyro.reset();
             }
         }
         
@@ -71,8 +73,18 @@ public class SS_Swerve extends Subsystem {
     
     //convenience method
     public void swerve(int heading, double power, O_Point center, double turnSpeed) {
+        int robotCentricHeading = heading - (int)(gyro.getAngle() % 360);
+        if (robotCentricHeading > 180){
+            robotCentricHeading = robotCentricHeading -360; 
+        }
+        if (robotCentricHeading < -180){
+            robotCentricHeading = robotCentricHeading +360; 
+        }
+        System.out.println("heading: " + heading);
+        System.out.println("gyro: " + (gyro.getAngle() % 360));
+        System.out.println("robo centric: " + robotCentricHeading);
         O_Vector translationVector = new O_Vector();
-        translationVector = translationVector.polarVector(heading, power);
+        translationVector = translationVector.polarVector(robotCentricHeading, power);
         swerve(translationVector, center, turnSpeed);
     }
     
@@ -90,7 +102,7 @@ public class SS_Swerve extends Subsystem {
         //System.out.println("Zero Speed: " +  modules[3].zeroSpeedOutput);
         //System.out.println("Error: " + ( modules[3].desiredZeroSpeed - modules[3].turnEncoder.encoder.getRate()) * (modules[3].turnEncoder.encoder.getDirection() ? 1.0 : -1.0));  
         //System.out.println("photogate: " + modules[1].turnEncoder.zeroSensor.get());
-        //System.out.println("Compass: " + (compass.getAverageVoltage() * 72.0 - 180));
+        System.out.println("Gyro: " + (gyro.getAngle() % 360 - 180));
         System.out.println("");
         System.out.print("0: ");
         System.out.print(modules[0].turnEncoder.encoder.getRaw());
