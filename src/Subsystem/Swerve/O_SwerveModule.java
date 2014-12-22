@@ -34,7 +34,8 @@ public class O_SwerveModule {
     
     boolean isZeroing = false;
     
-    final int maxTurnDegrees  = 160;
+    double shouldReverse = 1.0; //1 is forward, //-1 is backwards
+    final int maxTurnDegrees  = 150;
     
     public O_SwerveModule(O_Point center, int CimPort, int CimilePort, int turnPort, int turnEncoderA, int turnEncoderB, int zeroPort, double zeroOffset, boolean reverseEncoder){
         location = center;
@@ -92,18 +93,38 @@ public class O_SwerveModule {
     
     public void setAngle(double angle) {
 
+        if(turnMotor.getChannel() == 2 | turnMotor.getChannel() == 1) {
+            angle = angle * -1.0;
+        }
+        
         if (wheelVector.getMagnitude() > 0.1) {
-            //int clockwiseDistance = angle - turnEncoder.pidGet();
-            if (angle - turnEncoder.pidGet() > maxTurnDegrees)
-            {
-                
+            int requiredTravel = (int)(angle - turnEncoder.pidGet());
+            if (requiredTravel > 180) {
+                requiredTravel = requiredTravel - 360;
+            }
+            if (requiredTravel < -180) {
+                requiredTravel = requiredTravel + 360;
             }
             
-            if(turnMotor.getChannel() == 2 | turnMotor.getChannel() == 1) {
-                turn.setSetpoint(-angle);
-            } else {
-                turn.setSetpoint(angle);
+            System.out.println("required travel: " + requiredTravel);
+            if (Math.abs(requiredTravel) > maxTurnDegrees) {
+                //should reverse motor and change angle
+                if (angle > 0) { 
+                    angle = angle - 180;
+                }
+                if (angle < 0) {
+                    angle = angle + 180;
+                }
+                shouldReverse = -1.0;
+                System.out.println("reversed direction");
             }
+            else
+            {
+                shouldReverse = 1.0;
+            }
+
+            turn.setSetpoint(angle);
+          
         }
         
         //System.out.println("P: "+ turn.getP());
@@ -111,7 +132,7 @@ public class O_SwerveModule {
     }
     
     public void setPower(double power) {
-        
+        power = power * shouldReverse; // multiplies by -1 to reverse 
         cim.set(power);
         cimile.set(-power);
     }

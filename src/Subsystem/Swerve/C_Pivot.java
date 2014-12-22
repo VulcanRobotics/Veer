@@ -5,7 +5,11 @@
  */
 package Subsystem.Swerve;
 
+import MathObject.O_Point;
+import MathObject.O_Vector;
 import Robot.CommandBase;
+import Robot.CommandBase.swerve;
+import Robot.OI;
 
 /**
  *
@@ -26,6 +30,8 @@ public class C_Pivot extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         System.out.println("pivoting");
+        //swerve.swerve(new O_Vector(0, 0), new O_Point(1,1), OI.rightX());
+             
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -97,7 +97,7 @@ public class SS_Swerve extends Subsystem {
         SmartDashboard.putNumber("Wheel2Angle", modules[1].wheelVector.getAngle());
         SmartDashboard.putNumber("Wheel3Angle", modules[2].wheelVector.getAngle());
         SmartDashboard.putNumber("Wheel4Angle", modules[3].wheelVector.getAngle());
-        SmartDashboard.putNumber("WheelAngle", modules[3].turnEncoder.encoder.getRaw());
+        SmartDashboard.putNumber("WheelAngle", modules[3].turnEncoder.getDistance());
         SmartDashboard.putNumber("PIDTarget", modules[3].turn.getSetpoint());
         SmartDashboard.putNumber("Power" + modules[3].turnMotor.getChannel(), modules[3].wheelVector.getMagnitude());
         //System.out.println("Zero Speed: " +  modules[3].zeroSpeedOutput);
