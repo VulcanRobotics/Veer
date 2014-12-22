@@ -9,44 +9,34 @@ import Robot.CommandBase;
 
 /**
  *
- * @author afiol-mahon
+ * @author liamcook
  */
-public class C_ZeroModules extends CommandBase {
-      
-    int numberOfModulesZeroed;
-            
-    public C_ZeroModules() {
+public class C_GoToHeading extends CommandBase {
+    
+    //PIDController PID = new PIDController(.07, 0, 0, turn, gyro, );
+    
+    public C_GoToHeading() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
         requires(swerve);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-         for(int k = 0; k<4; k++) {
-             swerve.modules[k].isZeroing = true;
-         }
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-       numberOfModulesZeroed = 0;
-    
-       for(int k = 0; k<4; k++) {
-             swerve.modules[k].zero();
-             if (!swerve.modules[k].isZeroing) {
-                 numberOfModulesZeroed++;
-             }
-         }
+        System.out.println("Pidding to heading");
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-
-        return numberOfModulesZeroed == 4;
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-        System.out.println("Swerve Modules Zeroed");
     }
 
     // Called when another command which requires one or more of the same

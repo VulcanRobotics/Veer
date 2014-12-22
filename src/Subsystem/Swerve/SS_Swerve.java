@@ -20,8 +20,11 @@ public class SS_Swerve extends Subsystem {
     
     O_SwerveModule[] modules = new O_SwerveModule[4];
 
-    Gyro gyro = new Gyro(RobotMap.Gyro); 
+    O_1218Gyro gyro = new O_1218Gyro();
+    
     public SS_Swerve() {
+        
+        
         modules[0] = new O_SwerveModule(new O_Point(1,1), RobotMap.SM0_CIM, RobotMap.SM0_CIMile, RobotMap.SM0_banebot, RobotMap.SM0_EncoderA, RobotMap.SM0_EncoderB, RobotMap.SM0_Zero, 35, false);
         modules[1] = new O_SwerveModule(new O_Point(-1,1), RobotMap.SM1_CIM, RobotMap.SM1_CIMile, RobotMap.SM1_banebot, RobotMap.SM1_EncoderA, RobotMap.SM1_EncoderB, RobotMap.SM1_Zero, -35, false);
         modules[2] = new O_SwerveModule(new O_Point(-1,-1), RobotMap.SM2_CIM, RobotMap.SM2_CIMile, RobotMap.SM2_banebot, RobotMap.SM2_EncoderA, RobotMap.SM2_EncoderB, RobotMap.SM2_Zero, -170, true);
@@ -49,12 +52,10 @@ public class SS_Swerve extends Subsystem {
             if(modules[k].wheelVector.getMagnitude() > maxWheelMagnitude) {
                 maxWheelMagnitude = modules[k].wheelVector.getMagnitude();
             }
-            if (OI.Button_A.get())
-            {
-                modules[k].isZeroing = true;
-                gyro.setSensitivity(.00738888);
-                gyro.reset();
-            }
+            
+               
+                
+                
         }
         
         //scale vectors so no wheel has to drive over 100%

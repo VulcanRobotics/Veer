@@ -64,7 +64,8 @@ public class O_SwerveModule {
         }
     }
     
-    void zero() {        
+    void zero() {   
+        if (isZeroing) {
         if(turnEncoder.zeroSensor.get()) {
             //zero mark reached
             System.out.println("done zeroing");
@@ -72,8 +73,10 @@ public class O_SwerveModule {
             turnEncoder.zero();
             turn.enable();
             isZeroing = false;
+           
         } else { 
             //zero mark not reached
+            System.out.println("zeroing: " + (turnMotor.getChannel() - 1));
             turn.disable();
             zeroSpeedOutput = zeroSpeedOutput + 0.00 * (desiredZeroSpeed - turnEncoder.encoder.getRate()) * (turnEncoder.encoder.getDirection() ? 1.0 : -1.0);
             if(zeroSpeedOutput > 1.0) {
@@ -83,11 +86,19 @@ public class O_SwerveModule {
             }
             turnMotor.set(zeroSpeedOutput);
             isZeroing = true;
-        }
+          
+        }}
     }
     
     public void setAngle(double angle) {
+
         if (wheelVector.getMagnitude() > 0.1) {
+            //int clockwiseDistance = angle - turnEncoder.pidGet();
+            if (angle - turnEncoder.pidGet() > maxTurnDegrees)
+            {
+                
+            }
+            
             if(turnMotor.getChannel() == 2 | turnMotor.getChannel() == 1) {
                 turn.setSetpoint(-angle);
             } else {
@@ -100,6 +111,7 @@ public class O_SwerveModule {
     }
     
     public void setPower(double power) {
+        
         cim.set(power);
         cimile.set(-power);
     }

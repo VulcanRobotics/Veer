@@ -16,9 +16,13 @@ public abstract class CommandBase extends Command {
     public static SS_Air air;
     
     public static void init() {
-        oi = new OI();
+        
         swerve = new SS_Swerve();
         air = new SS_Air();
+        
+        //has to be last
+        oi = new OI();
+        
     }
 
     public CommandBase(String name) {

@@ -44,7 +44,18 @@ public class OI {
         Button_B = new JoystickButton(joystick1, 2);
         Button_X = new JoystickButton(joystick1, 3);
         Button_Y = new JoystickButton(joystick1, 4);
-        //Button_A.whenPressed(new Subsystem.Swerve.C_ZeroModules());
+        
+        Button_L1.whileHeld(new Subsystem.Swerve.C_Pivot());
+        Button_L2.whileHeld(new Subsystem.Swerve.C_Pivot());
+        Button_R1.whileHeld(new Subsystem.Swerve.C_Pivot());
+        Button_R2.whileHeld(new Subsystem.Swerve.C_Pivot());
+       
+        leftThumb.whileHeld(new Subsystem.Swerve.C_Snake());
+        
+        rightThumb.whileHeld(new Subsystem.Swerve.C_GoToHeading());
+        
+        Button_A.whenPressed(new Subsystem.Swerve.C_ZeroModules());
+        Button_B.whenPressed(new Subsystem.Swerve.C_ResetGyro());
     }
     
     public double leftX() {
