@@ -2,6 +2,7 @@
 package Robot;
 
 import com.sun.squawk.util.MathUtils;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -34,28 +35,32 @@ public class OI {
         joystick2 = new Joystick(RobotMap.J2);
         
         leftThumb = new JoystickButton(joystick1, 9);
+            leftThumb.whileHeld(new Subsystem.Swerve.C_Snake());
+        
         rightThumb = new JoystickButton(joystick1, 10);
+            rightThumb.whileHeld(new Subsystem.Swerve.C_GoToHeading());
+            
         Button_L1 = new JoystickButton(joystick1, 5);
+            Button_L1.whileHeld(new Subsystem.Swerve.C_Pivot());
+            
         Button_R1 = new JoystickButton(joystick1, 6);
+            Button_R1.whileHeld(new Subsystem.Swerve.C_Pivot());
+            
         Button_L2 = new leftBumper(joystick1, 3);
+            Button_L2.whileHeld(new Subsystem.Swerve.C_Pivot());
+            
         Button_R2 = new rightBumper(joystick1, 3);
+            Button_R2.whileHeld(new Subsystem.Swerve.C_Pivot());
         
         Button_A = new JoystickButton(joystick1, 1);
+            Button_A.whenPressed(new Subsystem.Swerve.C_ZeroModules());
+            
         Button_B = new JoystickButton(joystick1, 2);
+            Button_B.whenPressed(new Subsystem.Swerve.C_ResetGyro());
+            
         Button_X = new JoystickButton(joystick1, 3);
+        
         Button_Y = new JoystickButton(joystick1, 4);
-        
-        Button_L1.whileHeld(new Subsystem.Swerve.C_Pivot());
-        Button_L2.whileHeld(new Subsystem.Swerve.C_Pivot());
-        Button_R1.whileHeld(new Subsystem.Swerve.C_Pivot());
-        Button_R2.whileHeld(new Subsystem.Swerve.C_Pivot());
-       
-        leftThumb.whileHeld(new Subsystem.Swerve.C_Snake());
-        
-        rightThumb.whileHeld(new Subsystem.Swerve.C_GoToHeading());
-        
-        Button_A.whenPressed(new Subsystem.Swerve.C_ZeroModules());
-        Button_B.whenPressed(new Subsystem.Swerve.C_ResetGyro());
     }
     
     public static double leftY() {
@@ -114,5 +119,34 @@ public class OI {
     // Start the command when the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
-}
+    public class leftBumper extends JoystickButton {
+        GenericHID joystick;
+        int buttonNumber;
 
+        public leftBumper(GenericHID joystick, int buttonNumber) {
+            super(joystick, buttonNumber);
+           this.buttonNumber = buttonNumber;
+            this.joystick = joystick;
+        }
+
+        public boolean get() {
+            return joystick.getRawAxis(buttonNumber) > 0.1;
+        }
+    }
+    
+    public class rightBumper extends JoystickButton {
+        GenericHID joystick;
+        int buttonNumber;
+
+        public rightBumper(GenericHID joystick, int buttonNumber) {
+            super(joystick, buttonNumber);
+            this.buttonNumber = buttonNumber;
+            this.joystick = joystick;
+        }
+
+        public boolean get() {
+            return joystick.getRawAxis(buttonNumber) < -0.1;
+        }
+    }
+    
+}

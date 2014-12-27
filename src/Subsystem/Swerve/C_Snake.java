@@ -17,8 +17,6 @@ import Robot.OI;
 public class C_Snake extends CommandBase {
     
     public C_Snake() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
         requires(swerve);
     }
 

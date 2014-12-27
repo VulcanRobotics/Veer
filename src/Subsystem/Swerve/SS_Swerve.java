@@ -7,11 +7,7 @@ package Subsystem.Swerve;
  */
 import MathObject.O_Vector;
 import MathObject.O_Point;
-import Robot.CommandBase;
-import Robot.OI;
 import Robot.RobotMap;
-import edu.wpi.first.wpilibj.AnalogChannel;
-import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
@@ -21,7 +17,7 @@ public class SS_Swerve extends Subsystem {
     
     O_SwerveModule[] modules = new O_SwerveModule[4];
 
-    O_1218Gyro gyro = new O_1218Gyro();
+    O_1218Gyro gyro = new O_1218Gyro(RobotMap.Gyro);
     
     public SS_Swerve() {
         

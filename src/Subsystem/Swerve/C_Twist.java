@@ -17,8 +17,6 @@ import Robot.OI;
 public class C_Twist extends CommandBase {
     
     public C_Twist() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
         requires(swerve);
     }
 

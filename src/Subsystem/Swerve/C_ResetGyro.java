@@ -14,8 +14,6 @@ import Robot.CommandBase;
 public class C_ResetGyro extends CommandBase {
     
     public C_ResetGyro() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
         requires(swerve);
     }
 
@@ -31,7 +29,6 @@ public class C_ResetGyro extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        
         return true;
     }
 
