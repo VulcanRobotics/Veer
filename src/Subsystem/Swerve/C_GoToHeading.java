@@ -24,7 +24,7 @@ public class C_GoToHeading extends CommandBase implements PIDOutput {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(swerve);
-        PID = new PIDController(.07, 0, 0, swerve.gyro, this, .001);
+        PID = new PIDController(.07, 0, 0, swerve.veerGyro, this, .001);
         PID.setInputRange(-180.0, 180.0);
         PID.setOutputRange(-1.0, 1.0);
         PID.setPID(1, 0, 0);
@@ -41,7 +41,7 @@ public class C_GoToHeading extends CommandBase implements PIDOutput {
     public void pidWrite(double turnSpeed) {
         //gets field centric heading = need to find a way to make 1 method for go to heading and one for twist
          int heading = OI.leftAngle();
-        int robotCentricHeading = heading - (int)(swerve.gyro.getAngle() % 360);
+        int robotCentricHeading = heading - (int)(swerve.veerGyro.getIntAngle() % 360);
         if (robotCentricHeading > 180){
             robotCentricHeading = robotCentricHeading -360; 
         }
@@ -66,7 +66,7 @@ public class C_GoToHeading extends CommandBase implements PIDOutput {
         PID.setPID(SmartDashboard.getNumber("HeadingP"),
                    SmartDashboard.getNumber("HeadingI"),
                    SmartDashboard.getNumber("HeadingD"));
-        SmartDashboard.putNumber("Heading", swerve.gyro.pidGet());
+        SmartDashboard.putNumber("Heading", swerve.veerGyro.pidGet());
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -44,7 +44,7 @@ public class C_Pivot extends CommandBase {
             shouldReverse = 1.0;
         }
        
-        int robotCenticAngle = fieldCentricAngle - (int)(swerve.gyro.getAngle() % 360);
+        int robotCenticAngle = fieldCentricAngle - (int)(swerve.veerGyro.getIntAngle() % 360);
         if (robotCenticAngle > 180){
             robotCenticAngle = robotCenticAngle -360; 
         }

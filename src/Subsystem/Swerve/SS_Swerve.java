@@ -17,7 +17,7 @@ public class SS_Swerve extends Subsystem {
     
     O_SwerveModule[] modules = new O_SwerveModule[4];
 
-    O_1218Gyro gyro = new O_1218Gyro(RobotMap.Gyro);
+    O_VeerGyro veerGyro = new O_VeerGyro(RobotMap.Gyro);
     
     public SS_Swerve() {
         
@@ -34,7 +34,7 @@ public class SS_Swerve extends Subsystem {
     public void initDefaultCommand() {
         setDefaultCommand(new C_Twist());   
     }
-    
+
     public void swerve(O_Vector translationVector, O_Point center, double turnSpeed) {        
         double maxWheelMagnitude = 0;
         
@@ -81,7 +81,7 @@ public class SS_Swerve extends Subsystem {
         //System.out.println("Zero Speed: " +  modules[3].zeroSpeedOutput);
         //System.out.println("Error: " + ( modules[3].desiredZeroSpeed - modules[3].turnEncoder.encoder.getRate()) * (modules[3].turnEncoder.encoder.getDirection() ? 1.0 : -1.0));  
         //System.out.println("photogate: " + modules[1].turnEncoder.zeroSensor.get());
-        System.out.println("Gyro: " + (gyro.getAngle() % 360 - 180));
+        System.out.println("Gyro: " + (veerGyro.getIntAngle() % 360 - 180));
         System.out.println("");
         System.out.print("0: ");
         System.out.print(modules[0].turnEncoder.encoder.getRaw());

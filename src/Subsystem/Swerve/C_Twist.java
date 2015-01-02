@@ -28,7 +28,7 @@ public class C_Twist extends CommandBase {
     protected void execute() {
         System.out.println("twist");
         int heading = OI.leftAngle();
-        int robotCentricHeading = heading - (int)(swerve.gyro.getAngle() % 360);
+        int robotCentricHeading = heading - (int)(swerve.veerGyro.getIntAngle() % 360);
         if (robotCentricHeading > 180){
             robotCentricHeading = robotCentricHeading -360; 
         }
@@ -36,7 +36,7 @@ public class C_Twist extends CommandBase {
             robotCentricHeading = robotCentricHeading +360; 
         }
         System.out.println("heading: " + heading);
-        System.out.println("gyro: " + (swerve.gyro.getAngle() % 360));
+        System.out.println("gyro: " + (swerve.veerGyro.getIntAngle() % 360));
         System.out.println("robo centric: " + robotCentricHeading);
         O_Vector translationVector = new O_Vector();
         translationVector = translationVector.polarVector(robotCentricHeading, OI.leftMagnitude());
