@@ -6,6 +6,7 @@
 package Subsystem.Swerve;
 
 import Robot.CommandBase;
+import Robot.OI;
 
 /**
  *
@@ -41,7 +42,7 @@ public class C_ZeroModules extends CommandBase {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 
-        return numberOfModulesZeroed == 4;
+        return numberOfModulesZeroed == 4 | OI.Button_X.get();
     }
 
     // Called once after isFinished returns true

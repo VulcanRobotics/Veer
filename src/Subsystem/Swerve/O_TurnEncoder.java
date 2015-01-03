@@ -28,8 +28,8 @@ class O_TurnEncoder implements PIDSource{
      */
     public double pidGet() {
         double angle = (getDistance() + zeroOffset) % 360.0;
-        angle += (angle < 0) ? 360: 0; //Add 360 if less than 0
-        return (angle - 180);
+        angle += (angle < 0.0) ? 360: 0.0; //Add 360 if less than 0
+        return (angle - 180.0);
     }
     
     public void zero() {
@@ -37,7 +37,7 @@ class O_TurnEncoder implements PIDSource{
     }
     
     public double getDistance() {
-        return 360.0*(encoder.getRaw()/1750.0);
+        return 360.0*(encoder.getRaw()/3500.0);
     }
     
     
