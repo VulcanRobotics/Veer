@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class O_SwerveModule {
     //Drive
         Victor cim;
-        Victor cimile;
     //Turn
         Talon turnMotor;
         O_TurnEncoder turnEncoder;
@@ -37,12 +36,10 @@ public class O_SwerveModule {
     double shouldReverse = 1.0; //1 is forward, //-1 is backwards
     final int maxTurnDegrees  = 150;
     
-    public O_SwerveModule(O_Point center, int CimPort, int CimilePort, int turnPort, int turnEncoderA, int turnEncoderB, int zeroPort, double zeroOffset, boolean reverseEncoder){
+    public O_SwerveModule(O_Point center, int CimPort, int turnPort, int turnEncoderA, int turnEncoderB, int zeroPort, double zeroOffset, boolean reverseEncoder){
         location = center;
         cim = new Victor(RobotMap.driveModule, CimPort);
         cim.setExpiration(0.5);
-        cimile = new Victor(RobotMap.driveModule, CimilePort);
-        cimile.setExpiration(0.5);
         turnMotor = new Talon(RobotMap.turnModule, turnPort);
         turnMotor.setExpiration(0.5);
         turnEncoder = new O_TurnEncoder(turnEncoderA, turnEncoderB, zeroPort, zeroOffset, reverseEncoder);
@@ -117,24 +114,16 @@ public class O_SwerveModule {
                 }
                 shouldReverse = -1.0;
                 System.out.println("reversed direction");
-            }
-            else
-            {
+            } else {
                 shouldReverse = 1.0;
             }
-
             turn.setSetpoint(angle);
-          
         }
-        
-        //System.out.println("P: "+ turn.getP());
-        //System.out.println("Current Angle" + turnEncoder.pidGet());
     }
     
     public void setPower(double power) {
         power = power * shouldReverse; // multiplies by -1 to reverse 
         cim.set(power);
-        cimile.set(-power);
     }
 }
 

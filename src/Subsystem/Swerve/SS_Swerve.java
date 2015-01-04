@@ -22,10 +22,10 @@ public class SS_Swerve extends Subsystem {
     public SS_Swerve() {
         
         
-        modules[0] = new O_SwerveModule(new O_Point(1,1), RobotMap.SM0_CIM, RobotMap.SM0_CIMile, RobotMap.SM0_banebot, RobotMap.SM0_EncoderA, RobotMap.SM0_EncoderB, RobotMap.SM0_Zero, 35, true);
-        modules[1] = new O_SwerveModule(new O_Point(-1,1), RobotMap.SM1_CIM, RobotMap.SM1_CIMile, RobotMap.SM1_banebot, RobotMap.SM1_EncoderA, RobotMap.SM1_EncoderB, RobotMap.SM1_Zero, -35, true);
-        modules[2] = new O_SwerveModule(new O_Point(-1,-1), RobotMap.SM2_CIM, RobotMap.SM2_CIMile, RobotMap.SM2_banebot, RobotMap.SM2_EncoderA, RobotMap.SM2_EncoderB, RobotMap.SM2_Zero, -170, false);
-        modules[3] = new O_SwerveModule(new O_Point(1,-1), RobotMap.SM3_CIM, RobotMap.SM3_CIMile, RobotMap.SM3_banebot, RobotMap.SM3_EncoderA, RobotMap.SM3_EncoderB, RobotMap.SM3_Zero, 100, false);
+        modules[0] = new O_SwerveModule(new O_Point(1,1), RobotMap.SM0_CIM, RobotMap.SM0_banebot, RobotMap.SM0_EncoderA, RobotMap.SM0_EncoderB, RobotMap.SM0_Zero, 35, true);
+        modules[1] = new O_SwerveModule(new O_Point(-1,1), RobotMap.SM1_CIM, RobotMap.SM1_banebot, RobotMap.SM1_EncoderA, RobotMap.SM1_EncoderB, RobotMap.SM1_Zero, -35, true);
+        modules[2] = new O_SwerveModule(new O_Point(-1,-1), RobotMap.SM2_CIM, RobotMap.SM2_banebot, RobotMap.SM2_EncoderA, RobotMap.SM2_EncoderB, RobotMap.SM2_Zero, -170, false);
+        modules[3] = new O_SwerveModule(new O_Point(1,-1), RobotMap.SM3_CIM, RobotMap.SM3_banebot, RobotMap.SM3_EncoderA, RobotMap.SM3_EncoderB, RobotMap.SM3_Zero, 100, false);
         System.out.println("Swerve Modules Initialized");
     }
     
@@ -62,10 +62,8 @@ public class SS_Swerve extends Subsystem {
         for(int k = 0; k<4; k++) {
             modules[k].update();
         }
-        
         syncDashboard();
     }
-    
     
     /**
      * Publishes all Swerve System Values to the dashboard.
@@ -78,18 +76,29 @@ public class SS_Swerve extends Subsystem {
         SmartDashboard.putNumber("WheelAngle", modules[3].turnEncoder.pidGet());
         SmartDashboard.putNumber("PIDTarget", modules[3].turn.getSetpoint());
         SmartDashboard.putNumber("Power" + modules[3].turnMotor.getChannel(), modules[3].wheelVector.getMagnitude());
-        //System.out.println("Zero Speed: " +  modules[3].zeroSpeedOutput);
-        //System.out.println("Error: " + ( modules[3].desiredZeroSpeed - modules[3].turnEncoder.encoder.getRate()) * (modules[3].turnEncoder.encoder.getDirection() ? 1.0 : -1.0));  
-        //System.out.println("photogate: " + modules[1].turnEncoder.zeroSensor.get());
-        System.out.println("Gyro: " + (veerGyro.getIntAngle() % 360 - 180));
-        System.out.println("");
-        System.out.print("0: ");
-        System.out.print(modules[0].turnEncoder.encoder.getRaw());
-        System.out.print(", 1: ");
-        System.out.print(modules[1].turnEncoder.encoder.getRaw());
-        System.out.print(", 2: ");
-        System.out.print(modules[2].turnEncoder.encoder.getRaw());
-        System.out.print(", 3: ");
-        System.out.print(modules[3].turnEncoder.encoder.getRaw());
+        consolePrint(1);
+    }
+    
+    /**
+     * Nice way to select debug output
+     * @param mode Different numbers correspond to different debug outputs on console
+     */
+    void consolePrint(int mode) {
+        if (mode == 1) {
+            System.out.println("Gyro: " + (veerGyro.getIntAngle() % 360 - 180));
+            System.out.println("");
+            System.out.print("0: ");
+            System.out.print(modules[0].turnEncoder.encoder.getRaw());
+            System.out.print(", 1: ");
+            System.out.print(modules[1].turnEncoder.encoder.getRaw());
+            System.out.print(", 2: ");
+            System.out.print(modules[2].turnEncoder.encoder.getRaw());
+            System.out.print(", 3: ");
+            System.out.print(modules[3].turnEncoder.encoder.getRaw());
+        } else if (mode == 2) {
+            System.out.println("Zero Speed: " +  modules[3].zeroSpeedOutput);
+            System.out.println("Error: " + ( modules[3].desiredZeroSpeed - modules[3].turnEncoder.encoder.getRate()) * (modules[3].turnEncoder.encoder.getDirection() ? 1.0 : -1.0));  
+            System.out.println("photogate: " + modules[1].turnEncoder.zeroSensor.get());
+        }
     }
 }

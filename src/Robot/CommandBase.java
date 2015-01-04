@@ -1,6 +1,5 @@
 package Robot;
 
-import Robot.Air.SS_Air;
 import edu.wpi.first.wpilibj.command.Command;
 import Subsystem.Swerve.SS_Swerve;
 /**
@@ -13,13 +12,10 @@ public abstract class CommandBase extends Command {
 
     public static OI oi;
     public static SS_Swerve swerve;
-    public static SS_Air air;
     
     public static void init() {
         
-        swerve = new SS_Swerve();
-        air = new SS_Air();
-        
+        swerve = new SS_Swerve();        
         //has to be last
         oi = new OI();
         
