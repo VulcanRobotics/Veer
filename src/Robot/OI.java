@@ -12,55 +12,39 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-    //// CREATING BUTTONS
-    // One type of button is a joystick button which is any button on a joystick.
-    // You create one by telling it which joystick it's on and which button
-    // number it is.
+    
     public static Joystick joystick1;
     public static Joystick joystick2;
     
-    public static Button leftThumb;
-    public static Button rightThumb;
-    public static Button Button_L1;
-    public static Button Button_R1;
-    public static Button Button_A;
-    public static Button Button_B;
-    public static Button Button_X;
-    public static Button Button_Y;
-    public static leftBumper Button_L2;
-    public static rightBumper Button_R2;
+    public static Button Snake;
+    public static Button GoToHeading;
+    public static Button Pivot0;
+    public static Button Pivot1;
+    public static Bumper Pivot2;
+    public static Button ZeroModules;
+    public static Button ResetGyro;
+    public static Button CancelZeroModules;
+    public static Button ButtonUnused;
     
     public OI() {
         joystick1 = new Joystick(RobotMap.J1);
         joystick2 = new Joystick(RobotMap.J2);
         
-        leftThumb = new JoystickButton(joystick1, 9);
-            leftThumb.whileHeld(new Subsystem.Swerve.C_Snake());
-        
-        rightThumb = new JoystickButton(joystick1, 10);
-            rightThumb.whileHeld(new Subsystem.Swerve.C_GoToHeading());
-            
-        Button_L1 = new JoystickButton(joystick1, 5);
-            Button_L1.whileHeld(new Subsystem.Swerve.C_Pivot());
-            
-        Button_R1 = new JoystickButton(joystick1, 6);
-            Button_R1.whileHeld(new Subsystem.Swerve.C_Pivot());
-            
-        Button_L2 = new leftBumper(joystick1, 3);
-            Button_L2.whileHeld(new Subsystem.Swerve.C_Pivot());
-            
-        Button_R2 = new rightBumper(joystick1, 3);
-            Button_R2.whileHeld(new Subsystem.Swerve.C_Pivot());
-        
-        Button_A = new JoystickButton(joystick1, 1);
-            Button_A.whenPressed(new Subsystem.Swerve.C_ZeroModules());
-            
-        Button_B = new JoystickButton(joystick1, 2);
-            Button_B.whenPressed(new Subsystem.Swerve.C_ResetGyro());
-            
-        Button_X = new JoystickButton(joystick1, 3);
-        
-        Button_Y = new JoystickButton(joystick1, 4);
+        Snake = new JoystickButton(joystick1, ButtonType.LeftThumb);
+            Snake.whileHeld(new Subsystem.Swerve.C_Snake());
+        GoToHeading = new JoystickButton(joystick1, ButtonType.RightThumb);
+            GoToHeading.whileHeld(new Subsystem.Swerve.C_GoToHeading());
+        Pivot0 = new JoystickButton(joystick1, ButtonType.L1);
+            Pivot0.whileHeld(new Subsystem.Swerve.C_Pivot());
+        Pivot1 = new JoystickButton(joystick1, ButtonType.R1);
+            Pivot1.whileHeld(new Subsystem.Swerve.C_Pivot());
+        Pivot2 = new Bumper(joystick1, Axis.Trigger);
+            Pivot2.whileHeld(new Subsystem.Swerve.C_Pivot());
+        ZeroModules = new JoystickButton(joystick1, ButtonType.A);
+            ZeroModules.whenPressed(new Subsystem.Swerve.C_ZeroModules());
+        ResetGyro = new JoystickButton(joystick1, ButtonType.B);
+        	ResetGyro.whenPressed(new Subsystem.Swerve.C_ResetGyro());
+        CancelZeroModules = new JoystickButton(joystick1, ButtonType.X);
     }
     
     public static double leftY() {
@@ -71,20 +55,21 @@ public class OI {
         return -joystick1.getRawAxis(2);
     }
     
-    public static int leftAngle() {
-        return (int)Math.toDegrees( MathUtils.atan2(leftY(), leftX()));
-    }
-    
-    public static double leftMagnitude() {
-        return Math.sqrt(leftX() * leftX() + leftY() * leftY());
-    }
-    
     public static double rightX() {
         return joystick1.getRawAxis(4);
     }
     
     public static double rightY() {
         return -joystick1.getRawAxis(5);
+    }
+    
+    
+    public static int leftAngle() {
+        return (int)Math.toDegrees( MathUtils.atan2(leftY(), leftX()));
+    }
+    
+    public static double leftMagnitude() {
+        return Math.sqrt(leftX() * leftX() + leftY() * leftY());
     }
     
     public static int rightAngle() {
@@ -94,43 +79,22 @@ public class OI {
     public static double rightMagnitude() {
         return Math.sqrt(rightX() * rightX() + rightY() * rightY());
     }
-    
-    // Another type of button you can create is a DigitalIOButton, which is
-    // a button or switch hooked up to the cypress module. These are useful if
-    // you want to build a customized operator interface.
-    // Button button = new DigitalIOButton(1);
-    
-    // There are a few additional built in buttons you can use. Additionally,
-    // by subclassing Button you can create custom triggers and bind those to
-    // commands the same as any other Button.
-    
-    //// TRIGGERING COMMANDS WITH BUTTONS
-    // Once you have a button, it's trivial to bind it to a button in one of
-    // three ways:
-    
-    // Start the command when the button is pressed and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenPressed(new ExampleCommand());
-    
-    // Run the command while the button is being held down and interrupt it once
-    // the button is released.
-    // button.whileHeld(new ExampleCommand());
-    
-    // Start the command when the button is released  and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenReleased(new ExampleCommand());
-    public class leftBumper extends JoystickButton {
+   
+    public class Bumper extends JoystickButton {
         GenericHID joystick;
-        int buttonNumber;
+        int TriggerAxis;
 
-        public leftBumper(GenericHID joystick, int buttonNumber) {
-            super(joystick, buttonNumber);
-           this.buttonNumber = buttonNumber;
+        public Bumper(GenericHID joystick, int TriggerAxis) {
+            super(joystick, TriggerAxis);
+           this.TriggerAxis = TriggerAxis;
             this.joystick = joystick;
         }
 
-        public boolean get() {
-            return joystick.getRawAxis(buttonNumber) > 0.1;
+        public boolean getLeft() {
+            return joystick.getRawAxis(TriggerAxis) > 0.1;
+        }
+        public boolean getRight() {
+        	return joystick.getRawAxis(TriggerAxis) < -0.1;
         }
     }
     
@@ -148,5 +112,22 @@ public class OI {
             return joystick.getRawAxis(buttonNumber) < -0.1;
         }
     }
-    
+    public static class Axis {
+	public static int LeftX = 1;
+	public static int LeftY = 2;
+	public static int Trigger = 3;
+	public static int RightX = 4;
+	public static int RightY = 5;
+	public static int DPadLeftRight = 6;
+    }
+    public static class ButtonType {
+        public static int A = 1;
+	public static int B = 2;
+	public static int X = 3;
+	public static int Y = 4;
+	public static int L1 = 5;
+	public static int R1 = 6;
+	public static int LeftThumb = 9;
+	public static int RightThumb = 10;
+    }
 }

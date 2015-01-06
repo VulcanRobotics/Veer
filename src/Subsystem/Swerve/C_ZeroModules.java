@@ -41,8 +41,7 @@ public class C_ZeroModules extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-
-        return numberOfModulesZeroed == 4 | OI.Button_X.get();
+        return numberOfModulesZeroed == 4 | OI.CancelZeroModules.get();
     }
 
     // Called once after isFinished returns true

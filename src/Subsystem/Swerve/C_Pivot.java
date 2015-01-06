@@ -27,19 +27,19 @@ public class C_Pivot extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        if (OI.Button_L1.get()) {
+        if (OI.Pivot0.get()) {
             fieldCentricAngle = -45;
             shouldReverse = 1.0;
         }
-        if (OI.Button_L2.get()) {
+        if (OI.Pivot2.getLeft()) {
             fieldCentricAngle = -135;
             shouldReverse = -1.0;
         }
-        if (OI.Button_R1.get()) {
+        if (OI.Pivot1.get()) {
             fieldCentricAngle = 45;
             shouldReverse = -1.0;
         }
-        if (OI.Button_R2.get()) {
+        if (OI.Pivot2.getRight()) {
             fieldCentricAngle = 135;
             shouldReverse = 1.0;
         }
